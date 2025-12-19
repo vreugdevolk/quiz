@@ -1,499 +1,363 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Pub Quiz - Speler</title>
+  <title>Quiz - Bureau Max</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --navy: #212c65;
+      --navy-dark: #1a2350;
+      --coral: #ee6d4e;
+      --coral-light: #f48970;
+      --coral-dark: #d85a3c;
+      --white: #ffffff;
+      --gray-100: #f4f6fa;
+      --gray-200: #e8ebf4;
+      --gray-300: #c5cce0;
+      --gray-400: #8892b0;
+      --green: #10b981;
+      --red: #ef4444;
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--navy);
       min-height: 100vh;
-      color: white;
-      padding: 15px;
+      min-height: -webkit-fill-available;
+      color: var(--white);
+      padding: 20px;
+      padding-bottom: env(safe-area-inset-bottom, 20px);
     }
 
-    .container {
-      max-width: 500px;
-      margin: 0 auto;
-    }
+    .container { max-width: 500px; margin: 0 auto; }
 
     header {
       text-align: center;
       margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
+    .logo { height: 32px; margin-bottom: 10px; }
+
     header h1 {
+      font-family: 'Outfit', sans-serif;
       font-size: 1.3rem;
-      color: #e94560;
-      margin-bottom: 5px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
 
     .player-name {
-      font-size: 1.1rem;
-      color: #4ecdc4;
+      font-size: 1rem;
+      color: var(--coral);
+      font-weight: 600;
+      margin-top: 5px;
     }
 
     .phase-badge {
       display: inline-block;
-      margin-top: 10px;
-      padding: 6px 16px;
-      background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-      border-radius: 20px;
+      margin-top: 12px;
+      padding: 8px 20px;
+      background: var(--coral);
+      border-radius: 30px;
+      font-family: 'Outfit', sans-serif;
       font-size: 0.85rem;
-      font-weight: bold;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .category-badge {
       display: inline-block;
-      margin-top: 10px;
-      padding: 6px 16px;
-      background: linear-gradient(135deg, #4ecdc4 0%, #45b7aa 100%);
-      border-radius: 20px;
+      margin-top: 12px;
+      padding: 8px 20px;
+      background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+      border-radius: 30px;
+      font-family: 'Outfit', sans-serif;
       font-size: 0.9rem;
-      font-weight: bold;
+      font-weight: 700;
     }
 
-    /* Category Voting Phase */
-    .category-voting-section {
-      margin-bottom: 20px;
+    /* Status Bar */
+    .status-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: rgba(255,255,255,0.05);
+      padding: 14px;
+      border-radius: 16px;
+      margin-bottom: 16px;
     }
 
-    .category-voting-section h2 {
+    .status-item { text-align: center; }
+    .status-label { font-size: 0.7rem; color: var(--gray-300); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .status-value { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--coral); }
+
+    /* Action Buttons */
+    .action-buttons { display: flex; gap: 10px; margin-bottom: 12px; }
+
+    .action-btn {
+      flex: 1;
+      padding: 16px 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .action-btn:active { transform: scale(0.98); }
+    .action-btn:disabled { opacity: 0.5; }
+
+    .skip-btn { background: rgba(239, 68, 68, 0.15); color: var(--red); border: 2px solid var(--red); }
+    .skip-btn.voted { background: var(--gray-400); color: var(--white); border-color: var(--gray-400); }
+
+    .bet-btn { background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%); color: var(--white); }
+    .bet-btn.placed { background: var(--green); }
+
+    .skip-info { text-align: center; font-size: 0.8rem; color: var(--gray-300); margin-bottom: 16px; }
+
+    /* Question Card */
+    .question-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .question-number { font-size: 0.8rem; color: var(--gray-300); margin-bottom: 10px; font-weight: 500; }
+
+    .question-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+
+    .bet-indicator {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 8px 16px;
+      background: rgba(238, 109, 78, 0.15);
+      border: 2px solid var(--coral);
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--coral);
+    }
+
+    /* Answer Section */
+    .answer-input {
+      width: 100%;
+      padding: 18px 20px;
+      font-family: 'DM Sans', sans-serif;
       font-size: 1.1rem;
-      color: #a8dadc;
-      margin-bottom: 15px;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.95);
+      color: var(--navy);
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .answer-input:focus { outline: none; border-color: var(--coral); }
+    .answer-input::placeholder { color: var(--gray-300); }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+      color: var(--white);
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .submit-btn:disabled { background: var(--gray-400); }
+    .submit-btn:active { transform: scale(0.98); }
+
+    .submitted-badge {
+      text-align: center;
+      padding: 16px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 2px solid var(--green);
+      border-radius: 14px;
+      margin-top: 12px;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* Answer Reveal */
+    .answer-reveal {
+      background: rgba(238, 109, 78, 0.1);
+      border: 2px solid var(--coral);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 16px;
       text-align: center;
     }
 
-    .category-input-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
+    .answer-reveal .label { font-size: 0.85rem; color: var(--gray-300); margin-bottom: 8px; }
+    .answer-reveal .correct-answer { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--coral); }
+
+    .your-answer {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 14px;
     }
+
+    .your-answer .label { font-size: 0.75rem; color: var(--gray-300); margin-bottom: 4px; }
+    .your-answer .text { font-size: 1rem; }
+
+    .bet-result {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-align: center;
+      background: rgba(238, 109, 78, 0.15);
+      color: var(--coral);
+    }
+
+    /* Waiting Screen */
+    .waiting-screen { text-align: center; padding: 50px 20px; }
+
+    .waiting-screen h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      animation: pulse 2s infinite;
+    }
+
+    .waiting-screen p { color: var(--gray-300); font-size: 1rem; }
+
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+    /* Category Voting */
+    .approved-info {
+      text-align: center;
+      padding: 20px;
+      background: rgba(238, 109, 78, 0.1);
+      border-radius: 16px;
+      margin-bottom: 20px;
+    }
+
+    .approved-info .count { font-family: 'Outfit', sans-serif; font-size: 3rem; font-weight: 900; color: var(--coral); }
+    .approved-info .label { font-size: 0.9rem; color: var(--gray-300); }
+
+    .category-input-row { display: flex; gap: 10px; margin-bottom: 20px; }
 
     .category-input {
       flex: 1;
-      padding: 15px;
+      padding: 16px 18px;
+      font-family: 'DM Sans', sans-serif;
       font-size: 1rem;
       border: none;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.9);
-      color: #1a1a2e;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.95);
+      color: var(--navy);
     }
 
-    .category-input:focus {
-      outline: 3px solid #4ecdc4;
-    }
+    .category-input:focus { outline: 3px solid var(--coral); }
 
     .add-category-btn {
-      padding: 15px 20px;
-      font-size: 1rem;
-      font-weight: bold;
+      padding: 16px 24px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
       border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #4ecdc4 0%, #45b7aa 100%);
-      color: white;
+      border-radius: 12px;
+      background: var(--coral);
+      color: var(--white);
       cursor: pointer;
     }
 
-    .category-list {
-      max-height: 300px;
-      overflow-y: auto;
-    }
+    .category-list { max-height: 300px; overflow-y: auto; }
 
     .category-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 15px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      margin-bottom: 8px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      border: 2px solid transparent;
     }
 
-    .category-item.approved {
-      background: rgba(78, 205, 196, 0.2);
-      border: 2px solid #4ecdc4;
-    }
+    .category-item.approved { background: rgba(238, 109, 78, 0.15); border-color: var(--coral); }
+    .category-item.mine { border-left: 4px solid var(--coral); }
 
-    .category-item.mine {
-      border-left: 3px solid #f39c12;
-    }
-
-    .category-name {
-      font-weight: bold;
-      flex: 1;
-    }
-
-    .category-count {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
+    .category-name { font-weight: 600; flex: 1; }
 
     .count-badge {
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: bold;
-    }
-
-    .count-badge.needs-more {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .count-badge.approved {
-      background: #4ecdc4;
-      color: #1a1a2e;
-    }
-
-    .approved-label {
-      font-size: 0.75rem;
-      color: #4ecdc4;
-      margin-left: 5px;
-    }
-
-    .suggesters {
-      font-size: 0.8rem;
-      color: #a8dadc;
-      margin-top: 4px;
-    }
-
-    /* Status bar */
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 12px 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      font-size: 0.9rem;
-    }
-
-    .status-item {
-      text-align: center;
-    }
-
-    .status-label {
-      font-size: 0.7rem;
-      color: #a8dadc;
-      margin-bottom: 3px;
-    }
-
-    .status-value {
-      font-size: 1rem;
-      font-weight: bold;
-    }
-
-    /* Action buttons for playing phase */
-    .action-buttons {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-
-    .action-btn {
-      flex: 1;
-      padding: 15px 10px;
-      font-size: 0.95rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .action-btn:active {
-      transform: scale(0.98);
-    }
-
-    .action-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .skip-btn {
-      background: linear-gradient(135deg, #e94560 0%, #d63050 100%);
-      color: white;
-    }
-
-    .skip-btn.voted {
-      background: #666;
-      color: #aaa;
-    }
-
-    .bet-btn {
-      background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-      color: white;
-    }
-
-    .bet-btn.placed {
-      background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-    }
-
-    .skip-info {
-      text-align: center;
-      font-size: 0.8rem;
-      color: #a8dadc;
-      margin-bottom: 15px;
-    }
-
-    /* Question section */
-    .question-section {
-      margin-bottom: 15px;
-    }
-
-    .question-card {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 15px;
-    }
-
-    .question-number {
-      font-size: 0.8rem;
-      color: #a8dadc;
-      margin-bottom: 8px;
-    }
-
-    .question-text {
-      font-size: 1.15rem;
-      line-height: 1.4;
-    }
-
-    .bet-indicator {
-      display: inline-block;
-      margin-top: 10px;
       padding: 5px 12px;
-      background: rgba(243, 156, 18, 0.2);
-      border: 1px solid #f39c12;
-      border-radius: 15px;
+      border-radius: 20px;
       font-size: 0.85rem;
-      color: #f39c12;
+      font-weight: 700;
+      background: rgba(255,255,255,0.15);
     }
 
-    .answer-section {
-      margin-bottom: 15px;
-    }
+    .count-badge.approved { background: var(--coral); }
 
-    .answer-input {
-      width: 100%;
-      padding: 18px;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.9);
-      color: #1a1a2e;
-      margin-bottom: 12px;
-    }
+    .suggesters { font-size: 0.8rem; color: var(--gray-300); margin-top: 4px; }
 
-    .answer-input:focus {
-      outline: 3px solid #4ecdc4;
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 18px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #4ecdc4 0%, #45b7aa 100%);
-      color: white;
-      cursor: pointer;
-    }
-
-    .submit-btn:disabled {
-      background: #666;
-      cursor: not-allowed;
-    }
-
-    .submitted-badge {
-      text-align: center;
-      padding: 15px;
-      background: rgba(78, 205, 196, 0.2);
-      border: 2px solid #4ecdc4;
-      border-radius: 10px;
-      margin-top: 12px;
-    }
-
-    .waiting-screen {
-      text-align: center;
-      padding: 30px 15px;
-    }
-
-    .waiting-screen h2 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-      animation: pulse 2s infinite;
-    }
-
-    .waiting-screen p {
-      color: #a8dadc;
-      font-size: 1rem;
-    }
-
-    .answer-reveal {
-      background: rgba(78, 205, 196, 0.1);
-      border: 2px solid #4ecdc4;
-      border-radius: 10px;
-      padding: 15px;
-      margin-top: 15px;
-      text-align: center;
-    }
-
-    .answer-reveal .label {
-      font-size: 0.85rem;
-      color: #a8dadc;
-      margin-bottom: 8px;
-    }
-
-    .answer-reveal .correct-answer {
-      font-size: 1.3rem;
-      color: #4ecdc4;
-      font-weight: bold;
-    }
-
-    .your-answer {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 12px;
-      margin-top: 12px;
-    }
-
-    .your-answer .label {
-      font-size: 0.75rem;
-      color: #a8dadc;
-      margin-bottom: 4px;
-    }
-
-    .your-answer .text {
-      font-size: 1rem;
-    }
-
-    .bet-result {
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-align: center;
-      background: rgba(243, 156, 18, 0.2);
-      color: #f39c12;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-
-    .leaderboard {
-      margin-top: 20px;
-    }
-
-    .leaderboard h3 {
-      font-size: 1rem;
-      color: #a8dadc;
-      margin-bottom: 12px;
-      text-align: center;
-    }
+    /* Leaderboard */
+    .leaderboard { margin-top: 24px; }
+    .leaderboard h3 { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--gray-300); margin-bottom: 14px; text-align: center; text-transform: uppercase; letter-spacing: 0.1em; }
 
     .leaderboard-item {
       display: flex;
       justify-content: space-between;
-      padding: 10px 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      margin-bottom: 6px;
-      font-size: 0.9rem;
-    }
-
-    .leaderboard-item.you {
-      background: rgba(78, 205, 196, 0.2);
-      border: 1px solid #4ecdc4;
-    }
-
-    .leaderboard-item.has-bet {
-      border-left: 3px solid #f39c12;
-    }
-
-    .leaderboard-rank {
-      width: 25px;
-      color: #a8dadc;
-    }
-
-    .leaderboard-name {
-      flex: 1;
-    }
-
-    .leaderboard-score {
-      color: #4ecdc4;
-      font-weight: bold;
-    }
-
-    .finished-message {
-      text-align: center;
-      padding: 30px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-    }
-
-    .finished-message h2 {
-      color: #e94560;
-      margin-bottom: 15px;
-    }
-
-    .your-final-score {
-      font-size: 3rem;
-      color: #4ecdc4;
-      font-weight: bold;
-      margin: 20px 0;
-    }
-
-    .your-final-rank {
-      font-size: 1.2rem;
-      color: #a8dadc;
-    }
-
-    .approved-categories-info {
-      text-align: center;
-      padding: 15px;
-      background: rgba(78, 205, 196, 0.1);
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.04);
       border-radius: 10px;
-      margin-bottom: 15px;
-    }
-
-    .approved-categories-info .count {
-      font-size: 2rem;
-      color: #4ecdc4;
-      font-weight: bold;
-    }
-
-    .approved-categories-info .label {
+      margin-bottom: 8px;
       font-size: 0.9rem;
-      color: #a8dadc;
     }
+
+    .leaderboard-item.you { background: rgba(238, 109, 78, 0.15); border: 2px solid var(--coral); }
+    .leaderboard-item.has-bet { border-left: 3px solid var(--coral); }
+
+    .leaderboard-rank { width: 28px; color: var(--gray-400); }
+    .leaderboard-name { flex: 1; font-weight: 500; }
+    .leaderboard-score { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--coral); }
+
+    /* Finished */
+    .finished-message { text-align: center; padding: 40px 20px; background: rgba(255,255,255,0.05); border-radius: 20px; }
+    .finished-message h2 { font-family: 'Outfit', sans-serif; color: var(--coral); margin-bottom: 20px; font-size: 1.8rem; }
+    .your-final-score { font-family: 'Outfit', sans-serif; font-size: 4rem; font-weight: 900; color: var(--coral); margin: 20px 0; }
+    .your-final-rank { font-size: 1.2rem; color: var(--gray-300); }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Pub Quiz</h1>
+      <img src="/bureau_max_logo_wit.png" alt="Bureau Max" class="logo">
+      <h1>Quiz Night</h1>
       <div class="player-name" id="playerNameDisplay"></div>
       <div id="phaseBadge"></div>
     </header>
 
-    <div id="mainContent">
-      <!-- Content injected by JS -->
-    </div>
+    <div id="mainContent"></div>
 
     <div class="leaderboard" id="leaderboard" style="display: none;">
       <h3>Scoreboard</h3>
@@ -513,7 +377,13 @@
     let hasVotedSkip = false;
     let skipVoteStatus = { skipVoteCount: 0, totalPlayers: 0, votesNeeded: 1 };
 
-    // Get player name from URL
+    function createEl(tag, className, text) {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      if (text) el.textContent = text;
+      return el;
+    }
+
     const path = window.location.pathname;
     const match = path.match(/\/quiz\/(.+)/);
     if (match && match[1] !== 'admin') {
@@ -524,43 +394,30 @@
 
     socket.on('gameState', (state) => {
       currentState = state;
-      if (state.currentQuestionIndex === 0) {
-        hasVotedSkip = false;
-      }
+      if (state.currentQuestionIndex === 0) hasVotedSkip = false;
       render();
     });
 
     socket.on('playerUpdate', (playerData) => {
       players = playerData;
       const me = players.find(p => p.name === playerName);
-      if (me) {
-        hasVotedSkip = me.hasVotedSkip;
-      }
+      if (me) hasVotedSkip = me.hasVotedSkip;
       updateLeaderboard();
     });
 
     socket.on('categoryVotesUpdate', (cats) => {
       categories = cats;
-      if (currentState?.phase === 'category-voting') {
-        render();
-      }
+      if (currentState?.phase === 'category-voting') render();
     });
 
     socket.on('skipVoteUpdate', (status) => {
       skipVoteStatus = status;
-      if (currentState?.phase === 'playing') {
-        render();
-      }
+      if (currentState?.phase === 'playing') render();
     });
 
     socket.on('betPlaced', ({ questionId }) => {
       myBets.add(questionId);
       render();
-    });
-
-    socket.on('categoryApproved', ({ categoryName }) => {
-      // Could add a visual/audio notification here
-      console.log(`Category approved: ${categoryName}`);
     });
 
     function render() {
@@ -569,25 +426,30 @@
       const leaderboard = document.getElementById('leaderboard');
 
       if (!currentState) {
-        mainContent.innerHTML = '<div class="waiting-screen"><h2>Verbinden...</h2></div>';
+        mainContent.textContent = '';
+        const w = createEl('div', 'waiting-screen');
+        w.appendChild(createEl('h2', null, 'Verbinden...'));
+        mainContent.appendChild(w);
         return;
       }
 
-      // Phase badge
       if (currentState.phase === 'lobby') {
-        phaseBadge.innerHTML = '<div class="phase-badge">Wachten op start</div>';
+        phaseBadge.textContent = '';
+        phaseBadge.appendChild(createEl('div', 'phase-badge', 'Wachten op start'));
         leaderboard.style.display = 'none';
         renderLobby();
       } else if (currentState.phase === 'category-voting') {
-        phaseBadge.innerHTML = '<div class="phase-badge">Categorieën kiezen</div>';
+        phaseBadge.textContent = '';
+        phaseBadge.appendChild(createEl('div', 'phase-badge', 'Categorieën kiezen'));
         leaderboard.style.display = 'none';
         renderCategoryVoting();
       } else if (currentState.phase === 'playing') {
-        phaseBadge.innerHTML = `<div class="category-badge">${currentState.currentCategory?.name || ''}</div>`;
+        phaseBadge.textContent = '';
+        phaseBadge.appendChild(createEl('div', 'category-badge', currentState.currentCategory?.name || ''));
         leaderboard.style.display = 'block';
         renderPlaying();
       } else if (currentState.phase === 'finished') {
-        phaseBadge.innerHTML = '';
+        phaseBadge.textContent = '';
         leaderboard.style.display = 'block';
         renderFinished();
       }
@@ -595,76 +457,84 @@
 
     function renderLobby() {
       const mainContent = document.getElementById('mainContent');
-      mainContent.innerHTML = `
-        <div class="waiting-screen">
-          <h2>Wachten op start...</h2>
-          <p>De quizmaster start zo het kiezen van categorieën!</p>
-          <p style="margin-top: 20px; color: #4ecdc4;">${Object.keys(players).length || players.length} spelers aangemeld</p>
-        </div>
-      `;
+      mainContent.textContent = '';
+      const w = createEl('div', 'waiting-screen');
+      w.appendChild(createEl('h2', null, 'Wachten op start...'));
+      w.appendChild(createEl('p', null, 'De quizmaster start zo het kiezen van categorieën!'));
+      const count = createEl('p', null, players.length + ' spelers aangemeld');
+      count.style.marginTop = '20px';
+      count.style.color = 'var(--coral)';
+      w.appendChild(count);
+      mainContent.appendChild(w);
     }
 
     function renderCategoryVoting() {
       const mainContent = document.getElementById('mainContent');
+      mainContent.textContent = '';
+
       const approvedCount = categories.filter(c => c.isApproved).length;
 
-      const mySuggestions = categories.filter(c => c.suggesters.includes(playerName));
+      const info = createEl('div', 'approved-info');
+      info.appendChild(createEl('div', 'count', String(approvedCount)));
+      info.appendChild(createEl('div', 'label', 'categorieën goedgekeurd'));
+      mainContent.appendChild(info);
 
-      let categoriesHtml = categories.map(cat => {
-        const isMine = cat.suggesters.includes(playerName);
-        const remaining = currentState.votesNeededForCategory - cat.suggesterCount;
+      const title = createEl('h2', null, 'Welke categorieën wil jij?');
+      title.style.textAlign = 'center';
+      title.style.marginBottom = '10px';
+      title.style.fontFamily = 'Outfit, sans-serif';
+      title.style.fontSize = '1.2rem';
+      mainContent.appendChild(title);
 
-        return `
-          <div class="category-item ${cat.isApproved ? 'approved' : ''} ${isMine ? 'mine' : ''}">
-            <div>
-              <div class="category-name">${cat.name}</div>
-              <div class="suggesters">${cat.suggesters.join(', ')}</div>
-            </div>
-            <div class="category-count">
-              <span class="count-badge ${cat.isApproved ? 'approved' : 'needs-more'}">
-                ${cat.suggesterCount}/${currentState.votesNeededForCategory}
-              </span>
-              ${cat.isApproved ? '<span class="approved-label">IN!</span>' : ''}
-            </div>
-          </div>
-        `;
-      }).join('');
+      const hint = createEl('p', null, '3× dezelfde categorie = toegevoegd!');
+      hint.style.textAlign = 'center';
+      hint.style.color = 'var(--gray-300)';
+      hint.style.marginBottom = '20px';
+      hint.style.fontSize = '0.9rem';
+      mainContent.appendChild(hint);
 
-      mainContent.innerHTML = `
-        <div class="category-voting-section">
-          <div class="approved-categories-info">
-            <div class="count">${approvedCount}</div>
-            <div class="label">categorieën goedgekeurd</div>
-          </div>
+      const row = createEl('div', 'category-input-row');
+      const input = createEl('input', 'category-input');
+      input.type = 'text';
+      input.id = 'categoryInput';
+      input.placeholder = 'Typ een categorie...';
+      input.addEventListener('keypress', (e) => { if (e.key === 'Enter') suggestCategory(); });
+      row.appendChild(input);
 
-          <h2>Welke categorieën wil jij?</h2>
-          <p style="text-align: center; color: #a8dadc; margin-bottom: 15px; font-size: 0.9rem;">
-            Als 3 mensen dezelfde categorie invoeren wordt hij toegevoegd!
-          </p>
+      const btn = createEl('button', 'add-category-btn', '+');
+      btn.onclick = suggestCategory;
+      row.appendChild(btn);
+      mainContent.appendChild(row);
 
-          <div class="category-input-row">
-            <input
-              type="text"
-              class="category-input"
-              id="categoryInput"
-              placeholder="Typ een categorie..."
-              onkeypress="if(event.key === 'Enter') suggestCategory()"
-            />
-            <button class="add-category-btn" onclick="suggestCategory()">+</button>
-          </div>
+      const list = createEl('div', 'category-list');
+      if (categories.length === 0) {
+        list.appendChild(createEl('p', null, 'Nog geen categorieën voorgesteld'));
+        list.style.textAlign = 'center';
+        list.style.color = 'var(--gray-300)';
+      } else {
+        categories.forEach(cat => {
+          const isMine = cat.suggesters.includes(playerName);
+          const item = createEl('div', 'category-item' + (cat.isApproved ? ' approved' : '') + (isMine ? ' mine' : ''));
 
-          <div class="category-list">
-            ${categoriesHtml || '<p style="text-align: center; color: #a8dadc;">Nog geen categorieën voorgesteld</p>'}
-          </div>
-        </div>
-      `;
+          const left = createEl('div');
+          left.appendChild(createEl('div', 'category-name', cat.name));
+          left.appendChild(createEl('div', 'suggesters', cat.suggesters.join(', ')));
+          item.appendChild(left);
+
+          const badge = createEl('span', 'count-badge' + (cat.isApproved ? ' approved' : ''),
+            cat.suggesterCount + '/' + currentState.votesNeededForCategory);
+          item.appendChild(badge);
+
+          list.appendChild(item);
+        });
+      }
+      mainContent.appendChild(list);
     }
 
     function suggestCategory() {
       const input = document.getElementById('categoryInput');
       const categoryName = input.value.trim();
       if (!categoryName) return;
-
       socket.emit('suggestCategory', { playerName, categoryName });
       input.value = '';
       input.focus();
@@ -672,14 +542,13 @@
 
     function renderPlaying() {
       const mainContent = document.getElementById('mainContent');
+      mainContent.textContent = '';
 
       if (!currentState.currentQuestion) {
-        mainContent.innerHTML = `
-          <div class="waiting-screen">
-            <h2>Volgende categorie...</h2>
-            <p>Even geduld!</p>
-          </div>
-        `;
+        const w = createEl('div', 'waiting-screen');
+        w.appendChild(createEl('h2', null, 'Volgende categorie...'));
+        w.appendChild(createEl('p', null, 'Even geduld!'));
+        mainContent.appendChild(w);
         return;
       }
 
@@ -687,124 +556,104 @@
       const myAnswer = myAnswers[questionId] || '';
       const hasSubmitted = myAnswer !== '';
       const hasBet = myBets.has(questionId);
+      const me = players.find(p => p.name === playerName);
 
       // Status bar
-      const statusBarHtml = `
-        <div class="status-bar">
-          <div class="status-item">
-            <div class="status-label">Vraag</div>
-            <div class="status-value">${currentState.currentQuestionIndex + 1}/${currentState.currentCategory.questionCount}</div>
-          </div>
-          <div class="status-item">
-            <div class="status-label">Categorie</div>
-            <div class="status-value">${currentState.currentCategoryIndex + 1}/${currentState.totalCategories}</div>
-          </div>
-          <div class="status-item">
-            <div class="status-label">Score</div>
-            <div class="status-value">${players.find(p => p.name === playerName)?.score || 0}</div>
-          </div>
-          <div class="status-item">
-            <div class="status-label">Positie</div>
-            <div class="status-value">#${players.findIndex(p => p.name === playerName) + 1 || '-'}</div>
-          </div>
-        </div>
-      `;
+      const status = createEl('div', 'status-bar');
+      [
+        ['Vraag', (currentState.currentQuestionIndex + 1) + '/' + currentState.currentCategory.questionCount],
+        ['Cat.', (currentState.currentCategoryIndex + 1) + '/' + currentState.totalCategories],
+        ['Score', me?.score || 0],
+        ['Positie', '#' + (players.findIndex(p => p.name === playerName) + 1 || '-')]
+      ].forEach(([label, value]) => {
+        const item = createEl('div', 'status-item');
+        item.appendChild(createEl('div', 'status-label', label));
+        item.appendChild(createEl('div', 'status-value', String(value)));
+        status.appendChild(item);
+      });
+      mainContent.appendChild(status);
 
       // Action buttons
       const isLastCategory = currentState.currentCategoryIndex >= currentState.totalCategories - 1;
-      const actionButtonsHtml = `
-        <div class="action-buttons">
-          <button class="action-btn skip-btn ${hasVotedSkip ? 'voted' : ''}"
-                  onclick="toggleSkipVote()"
-                  ${isLastCategory ? 'disabled' : ''}>
-            ${hasVotedSkip ? 'Stem terug' : 'Skip Categorie'}
-          </button>
-          <button class="action-btn bet-btn ${hasBet ? 'placed' : ''}"
-                  onclick="placeBet()"
-                  ${hasBet || currentState.showAnswer || hasSubmitted ? 'disabled' : ''}>
-            ${hasBet ? 'Ingezet!' : 'Inzetten (2x)'}
-          </button>
-        </div>
-        <div class="skip-info">
-          Skip stemmen: ${skipVoteStatus.skipVoteCount}/${skipVoteStatus.votesNeeded} nodig
-        </div>
-      `;
+      const actions = createEl('div', 'action-buttons');
 
-      let betIndicator = hasBet ? '<div class="bet-indicator">Je hebt ingezet - 2x punten!</div>' : '';
+      const skipBtn = createEl('button', 'action-btn skip-btn' + (hasVotedSkip ? ' voted' : ''),
+        hasVotedSkip ? 'Stem terug' : 'Skip Categorie');
+      skipBtn.disabled = isLastCategory;
+      skipBtn.onclick = toggleSkipVote;
+      actions.appendChild(skipBtn);
 
-      let answerHtml = '';
-      if (currentState.showAnswer) {
-        answerHtml = `
-          <div class="answer-reveal">
-            <div class="label">Het juiste antwoord:</div>
-            <div class="correct-answer">${currentState.currentQuestion.answer}</div>
-          </div>
-          ${hasSubmitted ? `
-            <div class="your-answer">
-              <div class="label">Jouw antwoord:</div>
-              <div class="text">${myAnswer}</div>
-            </div>
-          ` : ''}
-          ${hasBet ? '<div class="bet-result">Wacht op punten van de quizmaster...</div>' : ''}
-        `;
+      const betBtn = createEl('button', 'action-btn bet-btn' + (hasBet ? ' placed' : ''),
+        hasBet ? 'Ingezet!' : 'Inzetten (2×)');
+      betBtn.disabled = hasBet || currentState.showAnswer || hasSubmitted;
+      betBtn.onclick = placeBet;
+      actions.appendChild(betBtn);
+
+      mainContent.appendChild(actions);
+      mainContent.appendChild(createEl('div', 'skip-info',
+        'Skip stemmen: ' + skipVoteStatus.skipVoteCount + '/' + skipVoteStatus.votesNeeded + ' nodig'));
+
+      // Question card
+      const card = createEl('div', 'question-card');
+      card.appendChild(createEl('div', 'question-number', 'Vraag ' + (currentState.currentQuestionIndex + 1)));
+      card.appendChild(createEl('div', 'question-text', currentState.currentQuestion.question));
+      if (hasBet) card.appendChild(createEl('div', 'bet-indicator', 'Je hebt ingezet — 2× punten!'));
+      mainContent.appendChild(card);
+
+      // Answer section
+      if (!currentState.showAnswer) {
+        const input = createEl('input', 'answer-input');
+        input.type = 'text';
+        input.id = 'answerInput';
+        input.placeholder = 'Typ je antwoord...';
+        input.value = myAnswer;
+        if (hasSubmitted) input.readOnly = true;
+        mainContent.appendChild(input);
+
+        const submitBtn = createEl('button', 'submit-btn', hasSubmitted ? 'Verzonden!' : 'Verzenden');
+        submitBtn.disabled = hasSubmitted;
+        submitBtn.onclick = submitAnswer;
+        mainContent.appendChild(submitBtn);
+
+        if (hasSubmitted) {
+          mainContent.appendChild(createEl('div', 'submitted-badge',
+            'Je antwoord is opgeslagen' + (hasBet ? ' (2× ingezet!)' : '')));
+        }
+      } else {
+        const reveal = createEl('div', 'answer-reveal');
+        reveal.appendChild(createEl('div', 'label', 'Het juiste antwoord:'));
+        reveal.appendChild(createEl('div', 'correct-answer', currentState.currentQuestion.answer));
+        mainContent.appendChild(reveal);
+
+        if (hasSubmitted) {
+          const yours = createEl('div', 'your-answer');
+          yours.appendChild(createEl('div', 'label', 'Jouw antwoord:'));
+          yours.appendChild(createEl('div', 'text', myAnswer));
+          mainContent.appendChild(yours);
+        }
+
+        if (hasBet) {
+          mainContent.appendChild(createEl('div', 'bet-result', 'Wacht op punten van de quizmaster...'));
+        }
       }
 
-      mainContent.innerHTML = `
-        ${statusBarHtml}
-        ${actionButtonsHtml}
-
-        <div class="question-section">
-          <div class="question-card">
-            <div class="question-number">Vraag ${currentState.currentQuestionIndex + 1}</div>
-            <div class="question-text">${currentState.currentQuestion.question}</div>
-            ${betIndicator}
-          </div>
-
-          ${!currentState.showAnswer ? `
-            <div class="answer-section">
-              <input
-                type="text"
-                class="answer-input"
-                id="answerInput"
-                placeholder="Typ je antwoord..."
-                value="${myAnswer}"
-                ${hasSubmitted ? 'readonly' : ''}
-              />
-              <button class="submit-btn" onclick="submitAnswer()" ${hasSubmitted ? 'disabled' : ''}>
-                ${hasSubmitted ? 'Verzonden!' : 'Verzenden'}
-              </button>
-              ${hasSubmitted ? `
-                <div class="submitted-badge">
-                  Je antwoord is opgeslagen ${hasBet ? '(2x ingezet!)' : ''}
-                </div>
-              ` : ''}
-            </div>
-          ` : ''}
-
-          ${answerHtml}
-        </div>
-      `;
-
       if (!hasSubmitted && !currentState.showAnswer) {
-        setTimeout(() => {
-          const input = document.getElementById('answerInput');
-          if (input) input.focus();
-        }, 100);
+        setTimeout(() => { const i = document.getElementById('answerInput'); if (i) i.focus(); }, 100);
       }
     }
 
     function renderFinished() {
       const mainContent = document.getElementById('mainContent');
+      mainContent.textContent = '';
+
       const me = players.find(p => p.name === playerName);
       const rank = players.findIndex(p => p.name === playerName) + 1;
 
-      mainContent.innerHTML = `
-        <div class="finished-message">
-          <h2>Quiz Afgelopen!</h2>
-          <div class="your-final-score">${me?.score || 0} pts</div>
-          <div class="your-final-rank">Je eindigde op plaats #${rank}</div>
-        </div>
-      `;
+      const msg = createEl('div', 'finished-message');
+      msg.appendChild(createEl('h2', null, 'Quiz Afgelopen!'));
+      msg.appendChild(createEl('div', 'your-final-score', (me?.score || 0) + ' pts'));
+      msg.appendChild(createEl('div', 'your-final-rank', 'Je eindigde op plaats #' + rank));
+      mainContent.appendChild(msg);
     }
 
     function toggleSkipVote() {
@@ -827,34 +676,30 @@
       const input = document.getElementById('answerInput');
       const answer = input.value.trim();
       if (!answer || !currentState?.currentQuestion) return;
-
       const questionId = currentState.currentQuestion.id;
       myAnswers[questionId] = answer;
-
       socket.emit('submitAnswer', { playerName, questionId, answer });
       render();
     }
 
     function updateLeaderboard() {
       const list = document.getElementById('leaderboardList');
-      list.innerHTML = players.slice(0, 10).map((player, index) => {
+      list.textContent = '';
+
+      players.slice(0, 10).forEach((player, index) => {
         const isYou = player.name === playerName;
         const hasBet = player.hasBetOnCurrent;
 
-        return `
-          <div class="leaderboard-item ${isYou ? 'you' : ''} ${hasBet ? 'has-bet' : ''}">
-            <span class="leaderboard-rank">${index + 1}.</span>
-            <span class="leaderboard-name">${player.name}${hasBet ? ' (2x)' : ''}</span>
-            <span class="leaderboard-score">${player.score} pts</span>
-          </div>
-        `;
-      }).join('');
+        const item = createEl('div', 'leaderboard-item' + (isYou ? ' you' : '') + (hasBet ? ' has-bet' : ''));
+        item.appendChild(createEl('span', 'leaderboard-rank', (index + 1) + '.'));
+        item.appendChild(createEl('span', 'leaderboard-name', player.name + (hasBet ? ' (2×)' : '')));
+        item.appendChild(createEl('span', 'leaderboard-score', player.score + ' pts'));
+        list.appendChild(item);
+      });
     }
 
     document.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter' && currentState?.phase === 'playing') {
-        submitAnswer();
-      }
+      if (e.key === 'Enter' && currentState?.phase === 'playing') submitAnswer();
     });
 
     render();

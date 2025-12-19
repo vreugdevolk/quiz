@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const VOTES_NEEDED_FOR_CATEGORY = 3;
 
 // Game state

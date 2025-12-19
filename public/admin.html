@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pub Quiz - Admin Panel</title>
+  <title>Quiz Admin - Bureau Max</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --navy: #212c65;
+      --navy-dark: #1a2350;
+      --navy-light: #2d3a7a;
+      --coral: #ee6d4e;
+      --coral-light: #f48970;
+      --coral-dark: #d85a3c;
+      --white: #ffffff;
+      --gray-50: #fafbfd;
+      --gray-100: #f4f6fa;
+      --gray-200: #e8ebf4;
+      --gray-300: #c5cce0;
+      --gray-400: #8892b0;
+      --green: #10b981;
+      --green-light: #d1fae5;
+      --red: #ef4444;
+      --red-light: #fee2e2;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -12,52 +34,83 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #1a1a2e;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--gray-100);
       min-height: 100vh;
-      color: white;
-      padding: 20px;
+      color: var(--navy);
     }
 
     .container {
-      max-width: 1400px;
+      max-width: 1500px;
       margin: 0 auto;
+      padding: 25px;
     }
 
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 30px;
+      padding: 20px 25px;
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(33, 44, 101, 0.06);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      height: 36px;
+      width: auto;
     }
 
     header h1 {
-      font-size: 1.6rem;
-      color: #e94560;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
     }
 
     .phase-indicator {
-      padding: 8px 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
+      padding: 10px 20px;
+      background: var(--gray-100);
+      border-radius: 50px;
       font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray-400);
+    }
+
+    .phase-indicator.active {
+      background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+      color: var(--white);
     }
 
     .header-actions {
       display: flex;
-      gap: 10px;
+      gap: 12px;
     }
 
     .reset-btn {
-      padding: 10px 20px;
-      background: #e94560;
-      border: none;
-      border-radius: 5px;
-      color: white;
+      padding: 12px 24px;
+      background: var(--white);
+      border: 2px solid var(--red);
+      border-radius: 10px;
+      color: var(--red);
       cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .reset-btn:hover {
+      background: var(--red);
+      color: var(--white);
     }
 
     .main-grid {
@@ -79,9 +132,10 @@
     }
 
     .panel {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 20px;
+      background: var(--white);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(33, 44, 101, 0.06);
     }
 
     .panel.full-width {
@@ -101,60 +155,73 @@
     }
 
     .panel h2 {
-      font-size: 1.1rem;
-      color: #a8dadc;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--gray-100);
       display: flex;
       align-items: center;
       gap: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .panel h2::before {
+      content: '';
+      width: 4px;
+      height: 18px;
+      background: var(--coral);
+      border-radius: 2px;
     }
 
     .btn {
-      padding: 12px 20px;
-      font-size: 1rem;
-      font-weight: bold;
+      padding: 14px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: all 0.2s ease;
       flex: 1;
     }
 
     .btn:hover {
       transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .btn:disabled {
       opacity: 0.5;
       cursor: not-allowed;
       transform: none;
+      box-shadow: none;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #4ecdc4 0%, #45b7aa 100%);
-      color: white;
+      background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+      color: var(--white);
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
+      background: var(--gray-100);
+      color: var(--navy);
     }
 
-    .btn-warning {
-      background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-      color: white;
+    .btn-secondary:hover {
+      background: var(--gray-200);
     }
 
     .btn-success {
-      background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
-      color: white;
+      background: linear-gradient(135deg, var(--green) 0%, #059669 100%);
+      color: var(--white);
     }
 
     .btn-danger {
-      background: linear-gradient(135deg, #e94560 0%, #d63050 100%);
-      color: white;
+      background: linear-gradient(135deg, var(--red) 0%, #dc2626 100%);
+      color: var(--white);
     }
 
     .controls {
@@ -165,25 +232,44 @@
 
     .control-row {
       display: flex;
-      gap: 8px;
+      gap: 10px;
     }
 
-    /* Category voting phase styles */
     .category-list {
       max-height: 400px;
       overflow-y: auto;
     }
 
+    .category-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .category-list::-webkit-scrollbar-track {
+      background: var(--gray-100);
+      border-radius: 3px;
+    }
+
+    .category-list::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 3px;
+    }
+
     .category-item {
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
-      margin-bottom: 10px;
+      padding: 18px;
+      background: var(--gray-50);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .category-item:hover {
+      border-color: var(--gray-200);
     }
 
     .category-item.approved {
-      background: rgba(78, 205, 196, 0.15);
-      border: 1px solid #4ecdc4;
+      background: linear-gradient(135deg, rgba(238, 109, 78, 0.08) 0%, rgba(238, 109, 78, 0.04) 100%);
+      border-color: var(--coral);
     }
 
     .category-header {
@@ -194,8 +280,10 @@
     }
 
     .category-name {
+      font-family: 'Outfit', sans-serif;
       font-size: 1.1rem;
-      font-weight: bold;
+      font-weight: 700;
+      color: var(--navy);
     }
 
     .category-status {
@@ -205,94 +293,117 @@
     }
 
     .category-count {
-      padding: 4px 12px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 15px;
+      padding: 5px 14px;
+      background: var(--gray-200);
+      border-radius: 20px;
       font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray-400);
     }
 
     .category-count.approved {
-      background: #4ecdc4;
-      color: #1a1a2e;
+      background: var(--coral);
+      color: var(--white);
     }
 
     .category-suggesters {
       font-size: 0.9rem;
-      color: #a8dadc;
-      margin-bottom: 10px;
+      color: var(--gray-400);
+      margin-bottom: 12px;
     }
 
     .question-form {
       display: flex;
-      gap: 8px;
-      margin-top: 10px;
+      gap: 10px;
+      margin-top: 15px;
     }
 
     .question-form input {
       flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
+      padding: 12px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--navy);
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.9rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .question-form input:focus {
+      outline: none;
+      border-color: var(--coral);
     }
 
     .question-form input::placeholder {
-      color: #888;
+      color: var(--gray-300);
     }
 
     .question-form button {
-      padding: 10px 15px;
-      background: #4ecdc4;
+      padding: 12px 20px;
+      background: var(--coral);
       border: none;
-      border-radius: 5px;
-      color: #1a1a2e;
-      font-weight: bold;
+      border-radius: 10px;
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .question-form button:hover {
+      background: var(--coral-dark);
+      transform: scale(1.05);
     }
 
     .questions-list {
-      margin-top: 10px;
-      padding-left: 15px;
-      border-left: 2px solid rgba(255, 255, 255, 0.1);
+      margin-top: 12px;
+      padding-left: 16px;
+      border-left: 3px solid var(--coral-light);
     }
 
     .question-preview {
       font-size: 0.85rem;
-      color: #a8dadc;
-      padding: 5px 0;
+      color: var(--gray-400);
+      padding: 6px 0;
     }
 
-    /* Playing phase styles */
     .current-question {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
+      background: var(--gray-50);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--coral);
     }
 
     .question-meta {
       font-size: 0.85rem;
-      color: #a8dadc;
-      margin-bottom: 8px;
+      color: var(--gray-400);
+      margin-bottom: 10px;
+      font-weight: 500;
     }
 
     .question-text {
-      font-size: 1.1rem;
-      margin-bottom: 12px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 15px;
+      line-height: 1.4;
     }
 
     .answer-text {
-      color: #4ecdc4;
+      color: var(--coral);
       font-size: 1rem;
-      padding: 10px;
-      background: rgba(78, 205, 196, 0.1);
-      border-radius: 5px;
+      font-weight: 600;
+      padding: 14px 18px;
+      background: rgba(238, 109, 78, 0.1);
+      border-radius: 10px;
     }
 
     .player-list {
-      max-height: 350px;
+      max-height: 400px;
       overflow-y: auto;
     }
 
@@ -300,15 +411,20 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      margin-bottom: 8px;
+      padding: 14px 16px;
+      background: var(--gray-50);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      transition: all 0.2s ease;
+    }
+
+    .player-item:hover {
+      background: var(--gray-100);
     }
 
     .player-item.has-bet {
-      border: 2px solid #f39c12;
-      background: rgba(243, 156, 18, 0.1);
+      border: 2px solid var(--coral);
+      background: rgba(238, 109, 78, 0.05);
     }
 
     .player-info {
@@ -316,7 +432,9 @@
     }
 
     .player-name {
-      font-weight: bold;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      color: var(--navy);
       margin-bottom: 4px;
       display: flex;
       align-items: center;
@@ -324,121 +442,168 @@
     }
 
     .bet-badge {
-      font-size: 0.75rem;
-      padding: 2px 6px;
-      background: #f39c12;
-      border-radius: 4px;
-      color: white;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      background: var(--coral);
+      border-radius: 6px;
+      color: var(--white);
+      font-weight: 700;
     }
 
     .player-answer {
       font-size: 0.85rem;
-      color: #a8dadc;
+      color: var(--gray-400);
     }
 
     .score-controls {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .score-btn {
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border: none;
-      border-radius: 50%;
-      font-size: 1.1rem;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .score-btn:hover {
+      transform: scale(1.1);
     }
 
     .score-btn.minus {
-      background: #e94560;
-      color: white;
+      background: var(--red-light);
+      color: var(--red);
     }
 
     .score-btn.plus {
-      background: #4ecdc4;
-      color: white;
+      background: var(--green-light);
+      color: var(--green);
     }
 
     .score-display {
-      font-size: 1.1rem;
-      font-weight: bold;
-      min-width: 45px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      min-width: 50px;
       text-align: center;
+      color: var(--coral);
     }
 
     .quick-actions {
       display: flex;
-      gap: 6px;
-      margin-top: 8px;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     .quick-btn {
-      padding: 6px 12px;
+      padding: 8px 14px;
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.8rem;
+      font-weight: 600;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .quick-btn:hover {
+      transform: translateY(-1px);
     }
 
     .quick-btn.correct {
-      background: #27ae60;
-      color: white;
+      background: var(--green);
+      color: var(--white);
     }
 
     .quick-btn.wrong {
-      background: #e94560;
-      color: white;
+      background: var(--red);
+      color: var(--white);
     }
 
     .waiting-message {
       text-align: center;
-      padding: 30px;
-      color: #a8dadc;
+      padding: 40px 20px;
+      color: var(--gray-400);
     }
 
     .waiting-message h3 {
-      font-size: 1.3rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--navy);
       margin-bottom: 10px;
     }
 
     .error-message {
-      background: rgba(233, 69, 96, 0.2);
-      border: 1px solid #e94560;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 15px;
-      color: #e94560;
+      background: var(--red-light);
+      border: 2px solid var(--red);
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      color: var(--red);
+      font-weight: 500;
     }
 
     .info-box {
-      background: rgba(78, 205, 196, 0.1);
-      border: 1px solid rgba(78, 205, 196, 0.3);
-      padding: 15px;
-      border-radius: 8px;
+      background: linear-gradient(135deg, rgba(238, 109, 78, 0.08) 0%, rgba(238, 109, 78, 0.04) 100%);
+      border: 2px solid rgba(238, 109, 78, 0.2);
+      padding: 20px;
+      border-radius: 12px;
       margin-bottom: 15px;
+      text-align: center;
     }
 
     .info-box .label {
-      font-size: 0.9rem;
-      color: #a8dadc;
+      font-size: 0.85rem;
+      color: var(--gray-400);
+      margin-bottom: 5px;
     }
 
     .info-box .value {
-      font-size: 1.5rem;
-      color: #4ecdc4;
-      font-weight: bold;
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      color: var(--coral);
+      font-weight: 800;
+    }
+
+    .category-progress-item {
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      background: var(--gray-50);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      color: var(--gray-400);
+      transition: all 0.2s ease;
+    }
+
+    .category-progress-item.current {
+      background: linear-gradient(135deg, rgba(238, 109, 78, 0.1) 0%, rgba(238, 109, 78, 0.05) 100%);
+      border: 2px solid var(--coral);
+      color: var(--coral);
+      font-weight: 600;
+    }
+
+    .category-progress-item.completed {
+      color: var(--green);
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Quiz Admin Panel</h1>
+      <div class="header-left">
+        <img src="/bureau_max_logo_blauw.png" alt="Bureau Max" class="logo">
+        <h1>Quiz Admin Panel</h1>
+      </div>
       <div class="phase-indicator" id="phaseIndicator">Fase: Lobby</div>
       <div class="header-actions">
         <button class="reset-btn" onclick="resetQuiz()">Reset Quiz</button>
@@ -447,9 +612,7 @@
 
     <div id="errorMessage" style="display: none;"></div>
 
-    <div class="main-grid" id="mainContent">
-      <!-- Content injected by JS based on phase -->
-    </div>
+    <div class="main-grid" id="mainContent"></div>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
@@ -459,6 +622,13 @@
     let players = [];
     let categories = [];
     let skipVoteStatus = { skipVoteCount: 0, totalPlayers: 0, votesNeeded: 1 };
+
+    function createEl(tag, className, text) {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      if (text) el.textContent = text;
+      return el;
+    }
 
     socket.on('gameState', (state) => {
       currentState = state;
@@ -489,7 +659,9 @@
 
     function showError(message) {
       const errorDiv = document.getElementById('errorMessage');
-      errorDiv.innerHTML = `<div class="error-message">${message}</div>`;
+      errorDiv.textContent = '';
+      const msgEl = createEl('div', 'error-message', message);
+      errorDiv.appendChild(msgEl);
       errorDiv.style.display = 'block';
       setTimeout(() => { errorDiv.style.display = 'none'; }, 5000);
     }
@@ -509,7 +681,8 @@
         'playing': 'Quiz Actief',
         'finished': 'Afgelopen'
       };
-      phaseIndicator.textContent = `Fase: ${phaseNames[currentState.phase] || currentState.phase}`;
+      phaseIndicator.textContent = 'Fase: ' + (phaseNames[currentState.phase] || currentState.phase);
+      phaseIndicator.className = 'phase-indicator' + (currentState.phase === 'playing' ? ' active' : '');
 
       if (currentState.phase === 'lobby') {
         renderLobby();
@@ -524,123 +697,207 @@
 
     function renderLobby() {
       const mainContent = document.getElementById('mainContent');
-      mainContent.innerHTML = `
-        <div class="panel">
-          <h2>Quiz Starten</h2>
-          <div class="waiting-message">
-            <h3>${players.length} speler(s) aangemeld</h3>
-            <p>Start de quiz wanneer iedereen er is</p>
-          </div>
-          <button class="btn btn-success" onclick="startCategoryVoting()" style="width: 100%;">
-            Start Categorieën Kiezen
-          </button>
-        </div>
+      mainContent.textContent = '';
 
-        <div class="panel">
-          <h2>Spelers</h2>
-          <div class="player-list">
-            ${players.map(p => `<div class="player-item"><span>${p.name}</span></div>`).join('') || '<p style="color: #a8dadc;">Nog geen spelers</p>'}
-          </div>
-        </div>
+      // Panel 1: Start
+      const panel1 = createEl('div', 'panel');
+      panel1.appendChild(createEl('h2', null, 'Quiz Starten'));
 
-        <div class="panel">
-          <h2>Instructies</h2>
-          <div style="color: #a8dadc; line-height: 1.6;">
-            <p><strong>1.</strong> Wacht tot alle spelers zijn ingelogd</p>
-            <p><strong>2.</strong> Klik "Start Categorieën Kiezen"</p>
-            <p><strong>3.</strong> Spelers typen categorieën in</p>
-            <p><strong>4.</strong> 3x dezelfde = automatisch toegevoegd</p>
-            <p><strong>5.</strong> Voeg vragen toe aan goedgekeurde categorieën</p>
-            <p><strong>6.</strong> Start de quiz!</p>
-          </div>
-        </div>
-      `;
+      const waiting = createEl('div', 'waiting-message');
+      waiting.appendChild(createEl('h3', null, players.length + ' speler(s) aangemeld'));
+      waiting.appendChild(createEl('p', null, 'Start de quiz wanneer iedereen er is'));
+      panel1.appendChild(waiting);
+
+      const startBtn = createEl('button', 'btn btn-success', 'Start Categorieën Kiezen');
+      startBtn.style.width = '100%';
+      startBtn.onclick = startCategoryVoting;
+      panel1.appendChild(startBtn);
+
+      mainContent.appendChild(panel1);
+
+      // Panel 2: Players
+      const panel2 = createEl('div', 'panel');
+      panel2.appendChild(createEl('h2', null, 'Spelers'));
+
+      const playerList = createEl('div', 'player-list');
+      if (players.length === 0) {
+        playerList.appendChild(createEl('p', null, 'Nog geen spelers'));
+        playerList.style.color = 'var(--gray-400)';
+      } else {
+        players.forEach(p => {
+          const item = createEl('div', 'player-item');
+          item.appendChild(createEl('span', null, p.name));
+          playerList.appendChild(item);
+        });
+      }
+      panel2.appendChild(playerList);
+      mainContent.appendChild(panel2);
+
+      // Panel 3: Instructions
+      const panel3 = createEl('div', 'panel');
+      panel3.appendChild(createEl('h2', null, 'Instructies'));
+
+      const instructions = createEl('div');
+      instructions.style.color = 'var(--gray-400)';
+      instructions.style.lineHeight = '1.8';
+      const steps = [
+        'Wacht tot alle spelers zijn ingelogd',
+        'Klik "Start Categorieën Kiezen"',
+        'Spelers typen categorieën in',
+        '3× dezelfde = automatisch toegevoegd',
+        'Voeg vragen toe aan goedgekeurde categorieën',
+        'Start de quiz!'
+      ];
+      steps.forEach((step, i) => {
+        const p = createEl('p');
+        const strong = createEl('strong', null, (i + 1) + '. ');
+        p.appendChild(strong);
+        p.appendChild(document.createTextNode(step));
+        instructions.appendChild(p);
+      });
+      panel3.appendChild(instructions);
+      mainContent.appendChild(panel3);
     }
 
     function renderCategoryVoting() {
       const mainContent = document.getElementById('mainContent');
+      mainContent.textContent = '';
+
       const approvedCategories = categories.filter(c => c.isApproved);
       const pendingCategories = categories.filter(c => !c.isApproved);
-
-      const approvedHtml = approvedCategories.map(cat => `
-        <div class="category-item approved">
-          <div class="category-header">
-            <span class="category-name">${cat.name}</span>
-            <div class="category-status">
-              <span class="category-count approved">${cat.suggesterCount}/${currentState.votesNeededForCategory}</span>
-              <span style="color: #4ecdc4;">✓ IN</span>
-            </div>
-          </div>
-          <div class="category-suggesters">Voorgesteld door: ${cat.suggesters.join(', ')}</div>
-          <div class="questions-list">
-            ${cat.questionCount} vraag/vragen toegevoegd
-            ${cat.questionCount > 0 ? '' : '<span style="color: #e94560;"> - Voeg vragen toe!</span>'}
-          </div>
-          <div class="question-form">
-            <input type="text" placeholder="Vraag" id="q-${cat.name.replace(/\s/g, '_')}" />
-            <input type="text" placeholder="Antwoord" id="a-${cat.name.replace(/\s/g, '_')}" />
-            <button onclick="addQuestion('${cat.name}')">+</button>
-          </div>
-        </div>
-      `).join('');
-
-      const pendingHtml = pendingCategories.map(cat => `
-        <div class="category-item">
-          <div class="category-header">
-            <span class="category-name">${cat.name}</span>
-            <span class="category-count">${cat.suggesterCount}/${currentState.votesNeededForCategory}</span>
-          </div>
-          <div class="category-suggesters">Voorgesteld door: ${cat.suggesters.join(', ')}</div>
-        </div>
-      `).join('');
-
       const canStartQuiz = approvedCategories.filter(c => c.questionCount > 0).length > 0;
 
-      mainContent.innerHTML = `
-        <div class="panel">
-          <h2>Besturing</h2>
-          <div class="info-box">
-            <div class="label">Goedgekeurde categorieën</div>
-            <div class="value">${approvedCategories.length}</div>
-          </div>
-          <div class="info-box">
-            <div class="label">Met vragen</div>
-            <div class="value">${approvedCategories.filter(c => c.questionCount > 0).length}</div>
-          </div>
-          <button class="btn btn-success" onclick="startQuiz()" style="width: 100%; margin-top: 15px;" ${canStartQuiz ? '' : 'disabled'}>
-            Start Quiz
-          </button>
-          ${!canStartQuiz ? '<p style="color: #e94560; text-align: center; margin-top: 10px; font-size: 0.9rem;">Voeg eerst vragen toe aan minstens 1 categorie</p>' : ''}
-        </div>
+      // Panel 1: Controls
+      const panel1 = createEl('div', 'panel');
+      panel1.appendChild(createEl('h2', null, 'Besturing'));
 
-        <div class="panel">
-          <h2>Goedgekeurde Categorieën (3+ stemmen)</h2>
-          <div class="category-list">
-            ${approvedHtml || '<p style="color: #a8dadc;">Nog geen goedgekeurde categorieën</p>'}
-          </div>
-        </div>
+      const info1 = createEl('div', 'info-box');
+      info1.appendChild(createEl('div', 'label', 'Goedgekeurde categorieën'));
+      info1.appendChild(createEl('div', 'value', String(approvedCategories.length)));
+      panel1.appendChild(info1);
 
-        <div class="panel">
-          <h2>Wachtend op Stemmen</h2>
-          <div class="category-list">
-            ${pendingHtml || '<p style="color: #a8dadc;">Geen wachtende categorieën</p>'}
-          </div>
-        </div>
-      `;
+      const info2 = createEl('div', 'info-box');
+      info2.appendChild(createEl('div', 'label', 'Met vragen'));
+      info2.appendChild(createEl('div', 'value', String(approvedCategories.filter(c => c.questionCount > 0).length)));
+      panel1.appendChild(info2);
+
+      const startBtn = createEl('button', 'btn btn-success', 'Start Quiz');
+      startBtn.style.width = '100%';
+      startBtn.style.marginTop = '15px';
+      startBtn.disabled = !canStartQuiz;
+      startBtn.onclick = startQuiz;
+      panel1.appendChild(startBtn);
+
+      if (!canStartQuiz) {
+        const warning = createEl('p', null, 'Voeg eerst vragen toe aan minstens 1 categorie');
+        warning.style.color = 'var(--red)';
+        warning.style.textAlign = 'center';
+        warning.style.marginTop = '10px';
+        warning.style.fontSize = '0.9rem';
+        panel1.appendChild(warning);
+      }
+
+      mainContent.appendChild(panel1);
+
+      // Panel 2: Approved Categories
+      const panel2 = createEl('div', 'panel');
+      panel2.appendChild(createEl('h2', null, 'Goedgekeurde Categorieën'));
+
+      const approvedList = createEl('div', 'category-list');
+      if (approvedCategories.length === 0) {
+        approvedList.appendChild(createEl('p', null, 'Nog geen goedgekeurde categorieën'));
+        approvedList.style.color = 'var(--gray-400)';
+      } else {
+        approvedCategories.forEach(cat => {
+          const item = createEl('div', 'category-item approved');
+
+          const header = createEl('div', 'category-header');
+          header.appendChild(createEl('span', 'category-name', cat.name));
+
+          const status = createEl('div', 'category-status');
+          status.appendChild(createEl('span', 'category-count approved', cat.suggesterCount + '/' + currentState.votesNeededForCategory));
+          const checkmark = createEl('span', null, '✓ IN');
+          checkmark.style.color = 'var(--coral)';
+          checkmark.style.fontWeight = '700';
+          status.appendChild(checkmark);
+          header.appendChild(status);
+          item.appendChild(header);
+
+          item.appendChild(createEl('div', 'category-suggesters', 'Voorgesteld door: ' + cat.suggesters.join(', ')));
+
+          const qList = createEl('div', 'questions-list');
+          const qText = cat.questionCount + ' vraag/vragen toegevoegd';
+          if (cat.questionCount === 0) {
+            const qSpan = createEl('span', null, qText);
+            const warning = createEl('span', null, ' - Voeg vragen toe!');
+            warning.style.color = 'var(--red)';
+            qList.appendChild(qSpan);
+            qList.appendChild(warning);
+          } else {
+            qList.appendChild(createEl('span', null, qText));
+          }
+          item.appendChild(qList);
+
+          const form = createEl('div', 'question-form');
+          const qInput = createEl('input');
+          qInput.type = 'text';
+          qInput.placeholder = 'Vraag';
+          qInput.id = 'q-' + cat.name.replace(/\s/g, '_');
+          form.appendChild(qInput);
+
+          const aInput = createEl('input');
+          aInput.type = 'text';
+          aInput.placeholder = 'Antwoord';
+          aInput.id = 'a-' + cat.name.replace(/\s/g, '_');
+          form.appendChild(aInput);
+
+          const addBtn = createEl('button', null, '+');
+          addBtn.onclick = () => addQuestion(cat.name);
+          form.appendChild(addBtn);
+
+          item.appendChild(form);
+          approvedList.appendChild(item);
+        });
+      }
+      panel2.appendChild(approvedList);
+      mainContent.appendChild(panel2);
+
+      // Panel 3: Pending Categories
+      const panel3 = createEl('div', 'panel');
+      panel3.appendChild(createEl('h2', null, 'Wachtend op Stemmen'));
+
+      const pendingList = createEl('div', 'category-list');
+      if (pendingCategories.length === 0) {
+        pendingList.appendChild(createEl('p', null, 'Geen wachtende categorieën'));
+        pendingList.style.color = 'var(--gray-400)';
+      } else {
+        pendingCategories.forEach(cat => {
+          const item = createEl('div', 'category-item');
+
+          const header = createEl('div', 'category-header');
+          header.appendChild(createEl('span', 'category-name', cat.name));
+          header.appendChild(createEl('span', 'category-count', cat.suggesterCount + '/' + currentState.votesNeededForCategory));
+          item.appendChild(header);
+
+          item.appendChild(createEl('div', 'category-suggesters', 'Voorgesteld door: ' + cat.suggesters.join(', ')));
+          pendingList.appendChild(item);
+        });
+      }
+      panel3.appendChild(pendingList);
+      mainContent.appendChild(panel3);
     }
 
     function renderPlaying() {
       const mainContent = document.getElementById('mainContent');
+      mainContent.textContent = '';
 
       if (!currentState.currentQuestion) {
-        mainContent.innerHTML = `
-          <div class="panel">
-            <h2>Quiz Afgelopen</h2>
-            <div class="waiting-message">
-              <h3>Alle categorieën zijn gespeeld!</h3>
-            </div>
-          </div>
-        `;
+        const panel = createEl('div', 'panel');
+        panel.appendChild(createEl('h2', null, 'Quiz Afgelopen'));
+        const waiting = createEl('div', 'waiting-message');
+        waiting.appendChild(createEl('h3', null, 'Alle categorieën zijn gespeeld!'));
+        panel.appendChild(waiting);
+        mainContent.appendChild(panel);
         return;
       }
 
@@ -648,48 +905,60 @@
       const isLastQuestion = currentState.currentQuestionIndex >= currentState.currentCategory.questionCount - 1;
       const isLastCategory = currentState.currentCategoryIndex >= currentState.totalCategories - 1;
 
-      mainContent.innerHTML = `
-        <div class="panel">
-          <h2>Quiz Besturing - ${currentState.currentCategory?.name || ''}</h2>
-          <div class="current-question">
-            <div class="question-meta">
-              Vraag ${currentState.currentQuestionIndex + 1} van ${currentState.currentCategory.questionCount} |
-              Categorie ${currentState.currentCategoryIndex + 1} van ${currentState.totalCategories}
-            </div>
-            <div class="question-text">${question.question}</div>
-            <div class="answer-text">Antwoord: ${question.answer || '-'}</div>
-          </div>
+      // Panel 1: Quiz Controls
+      const panel1 = createEl('div', 'panel');
+      panel1.appendChild(createEl('h2', null, 'Quiz Besturing - ' + (currentState.currentCategory?.name || '')));
 
-          <div class="controls">
-            <div class="control-row">
-              <button class="btn btn-secondary" onclick="prevQuestion()" ${currentState.currentQuestionIndex <= 0 ? 'disabled' : ''}>
-                Vorige
-              </button>
-              <button class="btn btn-secondary" onclick="nextQuestion()">
-                ${isLastQuestion ? (isLastCategory ? 'Einde' : 'Volgende Cat.') : 'Volgende'}
-              </button>
-            </div>
+      const questionBox = createEl('div', 'current-question');
+      questionBox.appendChild(createEl('div', 'question-meta',
+        'Vraag ' + (currentState.currentQuestionIndex + 1) + ' van ' + currentState.currentCategory.questionCount +
+        ' | Categorie ' + (currentState.currentCategoryIndex + 1) + ' van ' + currentState.totalCategories));
+      questionBox.appendChild(createEl('div', 'question-text', question.question));
+      questionBox.appendChild(createEl('div', 'answer-text', 'Antwoord: ' + (question.answer || '-')));
+      panel1.appendChild(questionBox);
 
-            <button class="btn ${currentState.showAnswer ? 'btn-warning' : 'btn-primary'}" onclick="toggleAnswer()">
-              ${currentState.showAnswer ? 'Verberg Antwoord' : 'Toon Antwoord'}
-            </button>
+      const controls = createEl('div', 'controls');
 
-            <button class="btn btn-danger" onclick="skipCategory()" ${isLastCategory ? 'disabled' : ''}>
-              Skip naar Volgende Categorie
-            </button>
-          </div>
-        </div>
+      const row1 = createEl('div', 'control-row');
+      const prevBtn = createEl('button', 'btn btn-secondary', 'Vorige');
+      prevBtn.disabled = currentState.currentQuestionIndex <= 0;
+      prevBtn.onclick = prevQuestion;
+      row1.appendChild(prevBtn);
 
-        <div class="panel">
-          <h2>Spelers & Scores</h2>
-          <div class="player-list" id="playerList"></div>
-        </div>
+      const nextLabel = isLastQuestion ? (isLastCategory ? 'Einde' : 'Volgende Cat.') : 'Volgende';
+      const nextBtn = createEl('button', 'btn btn-secondary', nextLabel);
+      nextBtn.onclick = nextQuestion;
+      row1.appendChild(nextBtn);
+      controls.appendChild(row1);
 
-        <div class="panel">
-          <h2>Categorieën</h2>
-          <div id="categoryProgress"></div>
-        </div>
-      `;
+      const toggleBtn = createEl('button', 'btn ' + (currentState.showAnswer ? 'btn-primary' : 'btn-primary'),
+        currentState.showAnswer ? 'Verberg Antwoord' : 'Toon Antwoord');
+      toggleBtn.onclick = toggleAnswer;
+      controls.appendChild(toggleBtn);
+
+      const skipBtn = createEl('button', 'btn btn-danger', 'Skip naar Volgende Categorie');
+      skipBtn.disabled = isLastCategory;
+      skipBtn.onclick = skipCategory;
+      controls.appendChild(skipBtn);
+
+      panel1.appendChild(controls);
+      mainContent.appendChild(panel1);
+
+      // Panel 2: Players & Scores
+      const panel2 = createEl('div', 'panel');
+      panel2.appendChild(createEl('h2', null, 'Spelers & Scores'));
+      const playerListDiv = createEl('div', 'player-list');
+      playerListDiv.id = 'playerList';
+      panel2.appendChild(playerListDiv);
+      mainContent.appendChild(panel2);
+
+      // Panel 3: Category Progress
+      const panel3 = createEl('div', 'panel');
+      panel3.appendChild(createEl('h2', null, 'Categorieën'));
+      const progressDiv = createEl('div');
+      progressDiv.id = 'categoryProgress';
+      panel3.appendChild(progressDiv);
+      mainContent.appendChild(panel3);
 
       renderPlayers();
       renderCategoryProgress();
@@ -699,76 +968,112 @@
       const playerList = document.getElementById('playerList');
       if (!playerList) return;
 
+      playerList.textContent = '';
       const questionId = currentState?.currentQuestion?.id;
 
-      playerList.innerHTML = players.map(player => {
-        const hasBet = player.hasBetOnCurrent;
+      if (players.length === 0) {
+        playerList.appendChild(createEl('p', null, 'Geen spelers'));
+        playerList.style.color = 'var(--gray-400)';
+        return;
+      }
 
-        return `
-          <div class="player-item ${hasBet ? 'has-bet' : ''}">
-            <div class="player-info">
-              <div class="player-name">
-                ${player.name}
-                ${hasBet ? '<span class="bet-badge">2x</span>' : ''}
-              </div>
-              <div class="player-answer">
-                Antwoord: ${player.currentAnswer || '-'}
-              </div>
-              ${hasBet && currentState?.showAnswer ? `
-                <div class="quick-actions">
-                  <button class="quick-btn correct" onclick="awardPoints('${player.name}', 1, ${questionId})">
-                    +1 (wordt 2)
-                  </button>
-                  <button class="quick-btn wrong" onclick="deductBetPoints('${player.name}', 1, ${questionId})">
-                    Fout (-1)
-                  </button>
-                </div>
-              ` : ''}
-            </div>
-            <div class="score-controls">
-              <button class="score-btn minus" onclick="updateScore('${player.name}', ${player.score - 1})">-</button>
-              <span class="score-display">${player.score}</span>
-              <button class="score-btn plus" onclick="updateScore('${player.name}', ${player.score + 1})">+</button>
-            </div>
-          </div>
-        `;
-      }).join('') || '<p style="color: #a8dadc;">Geen spelers</p>';
+      players.forEach(player => {
+        const hasBet = player.hasBetOnCurrent;
+        const item = createEl('div', 'player-item' + (hasBet ? ' has-bet' : ''));
+
+        const info = createEl('div', 'player-info');
+        const nameDiv = createEl('div', 'player-name');
+        nameDiv.appendChild(document.createTextNode(player.name));
+        if (hasBet) {
+          nameDiv.appendChild(createEl('span', 'bet-badge', '2×'));
+        }
+        info.appendChild(nameDiv);
+        info.appendChild(createEl('div', 'player-answer', 'Antwoord: ' + (player.currentAnswer || '-')));
+
+        if (hasBet && currentState?.showAnswer) {
+          const actions = createEl('div', 'quick-actions');
+          const correctBtn = createEl('button', 'quick-btn correct', '+1 (wordt 2)');
+          correctBtn.onclick = () => awardPoints(player.name, 1, questionId);
+          actions.appendChild(correctBtn);
+
+          const wrongBtn = createEl('button', 'quick-btn wrong', 'Fout (-1)');
+          wrongBtn.onclick = () => deductBetPoints(player.name, 1, questionId);
+          actions.appendChild(wrongBtn);
+          info.appendChild(actions);
+        }
+
+        item.appendChild(info);
+
+        const scoreControls = createEl('div', 'score-controls');
+        const minusBtn = createEl('button', 'score-btn minus', '-');
+        minusBtn.onclick = () => updateScore(player.name, player.score - 1);
+        scoreControls.appendChild(minusBtn);
+
+        scoreControls.appendChild(createEl('span', 'score-display', String(player.score)));
+
+        const plusBtn = createEl('button', 'score-btn plus', '+');
+        plusBtn.onclick = () => updateScore(player.name, player.score + 1);
+        scoreControls.appendChild(plusBtn);
+
+        item.appendChild(scoreControls);
+        playerList.appendChild(item);
+      });
     }
 
     function renderCategoryProgress() {
       const progress = document.getElementById('categoryProgress');
       if (!progress || !currentState) return;
 
-      let html = '';
+      progress.textContent = '';
+
       for (let i = 0; i < currentState.totalCategories; i++) {
         const isCurrent = i === currentState.currentCategoryIndex;
         const isCompleted = i < currentState.currentCategoryIndex;
-        html += `
-          <div style="padding: 8px 12px; margin-bottom: 5px; background: ${isCurrent ? 'rgba(78, 205, 196, 0.2)' : 'rgba(255,255,255,0.05)'}; border-radius: 5px; ${isCurrent ? 'border: 1px solid #4ecdc4;' : ''}">
-            ${i + 1}. ${isCompleted ? '✓' : isCurrent ? '→' : ''} Categorie ${i + 1}
-          </div>
-        `;
+
+        let className = 'category-progress-item';
+        if (isCurrent) className += ' current';
+        if (isCompleted) className += ' completed';
+
+        const item = createEl('div', className);
+        const prefix = isCompleted ? '✓ ' : isCurrent ? '→ ' : '';
+        item.textContent = (i + 1) + '. ' + prefix + 'Categorie ' + (i + 1);
+        progress.appendChild(item);
       }
-      progress.innerHTML = html;
     }
 
     function renderFinished() {
       const mainContent = document.getElementById('mainContent');
+      mainContent.textContent = '';
+
       const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
 
-      mainContent.innerHTML = `
-        <div class="panel full-width">
-          <h2>Quiz Afgelopen - Eindstand</h2>
-          <div class="player-list">
-            ${sortedPlayers.map((p, i) => `
-              <div class="player-item" style="${i === 0 ? 'background: rgba(255, 215, 0, 0.2); border: 2px solid gold;' : ''}">
-                <span><strong>#${i + 1}</strong> ${p.name}</span>
-                <span style="color: #4ecdc4; font-weight: bold;">${p.score} pts</span>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-      `;
+      const panel = createEl('div', 'panel full-width');
+      panel.appendChild(createEl('h2', null, 'Quiz Afgelopen - Eindstand'));
+
+      const playerList = createEl('div', 'player-list');
+      sortedPlayers.forEach((p, i) => {
+        const item = createEl('div', 'player-item');
+        if (i === 0) {
+          item.style.background = 'linear-gradient(135deg, rgba(238, 109, 78, 0.15) 0%, rgba(238, 109, 78, 0.05) 100%)';
+          item.style.border = '2px solid var(--coral)';
+        }
+
+        const left = createEl('span');
+        left.appendChild(createEl('strong', null, '#' + (i + 1) + ' '));
+        left.appendChild(document.createTextNode(p.name));
+        item.appendChild(left);
+
+        const score = createEl('span', null, p.score + ' pts');
+        score.style.color = 'var(--coral)';
+        score.style.fontWeight = '700';
+        score.style.fontFamily = 'Outfit, sans-serif';
+        item.appendChild(score);
+
+        playerList.appendChild(item);
+      });
+
+      panel.appendChild(playerList);
+      mainContent.appendChild(panel);
     }
 
     // Actions
@@ -781,8 +1086,8 @@
     }
 
     function addQuestion(categoryName) {
-      const qInput = document.getElementById(`q-${categoryName.replace(/\s/g, '_')}`);
-      const aInput = document.getElementById(`a-${categoryName.replace(/\s/g, '_')}`);
+      const qInput = document.getElementById('q-' + categoryName.replace(/\s/g, '_'));
+      const aInput = document.getElementById('a-' + categoryName.replace(/\s/g, '_'));
 
       const question = qInput.value.trim();
       const answer = aInput.value.trim();
