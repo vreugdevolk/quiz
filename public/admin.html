@@ -113,6 +113,24 @@
       color: var(--white);
     }
 
+    .refresh-btn {
+      padding: 12px 24px;
+      background: var(--white);
+      border: 2px solid var(--navy);
+      border-radius: 10px;
+      color: var(--navy);
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .refresh-btn:hover {
+      background: var(--navy);
+      color: var(--white);
+    }
+
     .main-grid {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -402,6 +420,164 @@
       border-radius: 10px;
     }
 
+    /* Question type badges */
+    .type-badge {
+      display: inline-block;
+      margin-left: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .type-badge.type-multiple-choice {
+      background: rgba(238, 109, 78, 0.15);
+      color: var(--coral);
+    }
+
+    .type-badge.type-number {
+      background: rgba(59, 130, 246, 0.15);
+      color: #3b82f6;
+    }
+
+    .type-badge.type-text {
+      background: rgba(136, 146, 176, 0.15);
+      color: var(--gray-400);
+    }
+
+    .type-badge.type-music {
+      background: rgba(168, 85, 247, 0.15);
+      color: #a855f7;
+    }
+
+    .type-badge.type-video {
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+    }
+
+    .type-badge.type-image {
+      background: rgba(6, 182, 212, 0.15);
+      color: #06b6d4;
+    }
+
+    /* Image info in admin */
+    .image-info-admin {
+      margin-top: 12px;
+      padding: 15px 18px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 12px;
+    }
+
+    .image-info-admin img {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .image-info-admin .image-credit {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+      font-style: italic;
+    }
+
+    /* Video info in admin */
+    .video-info-admin {
+      margin-top: 12px;
+      padding: 15px 18px;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      border-radius: 10px;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+
+    /* Music info in admin */
+    .music-info-admin {
+      margin-top: 12px;
+      padding: 15px 18px;
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 10px;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+
+    .youtube-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: #ff0000;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .youtube-link:hover {
+      background: #cc0000;
+    }
+
+    .youtube-embed-admin {
+      margin-top: 15px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .youtube-embed-admin iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+    }
+
+    .music-controls-admin {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* MC options in admin */
+    .mc-options-admin {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .mc-option-admin {
+      padding: 10px 14px;
+      background: var(--gray-100);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: var(--navy);
+    }
+
+    .mc-option-admin.correct {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--green);
+      font-weight: 600;
+      border: 2px solid var(--green);
+    }
+
+    /* Auto-score indicator */
+    .auto-score-notice {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--green);
+      text-align: center;
+      font-weight: 500;
+    }
+
     .player-list {
       max-height: 400px;
       overflow-y: auto;
@@ -606,6 +782,7 @@
       </div>
       <div class="phase-indicator" id="phaseIndicator">Fase: Lobby</div>
       <div class="header-actions">
+        <button class="refresh-btn" onclick="refreshQuestions()">Refresh Vragen</button>
         <button class="reset-btn" onclick="resetQuiz()">Reset Quiz</button>
       </div>
     </header>
@@ -910,11 +1087,131 @@
       panel1.appendChild(createEl('h2', null, 'Quiz Besturing - ' + (currentState.currentCategory?.name || '')));
 
       const questionBox = createEl('div', 'current-question');
-      questionBox.appendChild(createEl('div', 'question-meta',
-        'Vraag ' + (currentState.currentQuestionIndex + 1) + ' van ' + currentState.currentCategory.questionCount +
-        ' | Categorie ' + (currentState.currentCategoryIndex + 1) + ' van ' + currentState.totalCategories));
+
+      const metaRow = createEl('div', 'question-meta');
+      metaRow.textContent = 'Vraag ' + (currentState.currentQuestionIndex + 1) + ' van ' + currentState.currentCategory.questionCount +
+        ' | Categorie ' + (currentState.currentCategoryIndex + 1) + ' van ' + currentState.totalCategories;
+
+      // Show question type badge
+      const questionType = question.type || 'text';
+      const typeBadge = createEl('span', 'type-badge type-' + questionType);
+      if (questionType === 'multiple-choice') {
+        typeBadge.textContent = 'MC • Auto-score';
+      } else if (questionType === 'number') {
+        typeBadge.textContent = 'Getal • Auto-score';
+      } else if (questionType === 'music') {
+        typeBadge.textContent = 'Muziek • Fuzzy match';
+      } else if (questionType === 'video') {
+        typeBadge.textContent = 'Film • Fuzzy match';
+      } else if (questionType === 'image') {
+        typeBadge.textContent = 'Afbeelding • Fuzzy match';
+      } else {
+        typeBadge.textContent = 'Tekst • Fuzzy match';
+      }
+      metaRow.appendChild(typeBadge);
+
+      questionBox.appendChild(metaRow);
       questionBox.appendChild(createEl('div', 'question-text', question.question));
-      questionBox.appendChild(createEl('div', 'answer-text', 'Antwoord: ' + (question.answer || '-')));
+
+      // Show music info in admin
+      if (questionType === 'music') {
+        const musicInfo = createEl('div', 'music-info-admin');
+        const musicLabel = createEl('strong', null, '🎵 ');
+        musicInfo.appendChild(musicLabel);
+        musicInfo.appendChild(document.createTextNode(
+          (question.songTitle || question.answer) +
+          (question.artist ? ' - ' + question.artist : '') +
+          (question.playSeconds ? ' (eerste ' + question.playSeconds + ' sec)' : '')
+        ));
+        questionBox.appendChild(musicInfo);
+
+        // YouTube embed for playing music
+        if (question.youtubeId) {
+          const embedContainer = createEl('div', 'youtube-embed-admin');
+          const iframe = document.createElement('iframe');
+          iframe.src = 'https://www.youtube.com/embed/' + question.youtubeId + '?autoplay=0&start=0&controls=1';
+          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          iframe.allowFullscreen = true;
+          embedContainer.appendChild(iframe);
+          questionBox.appendChild(embedContainer);
+
+          // Also add a link as backup
+          const controlsDiv = createEl('div', 'music-controls-admin');
+          const ytLink = createEl('a', 'youtube-link');
+          ytLink.href = 'https://youtube.com/watch?v=' + question.youtubeId;
+          ytLink.target = '_blank';
+          ytLink.textContent = '↗ Open in YouTube';
+          controlsDiv.appendChild(ytLink);
+          questionBox.appendChild(controlsDiv);
+        }
+
+        questionBox.appendChild(createEl('div', 'answer-text', 'Antwoord: ' + (question.answer || '-')));
+      }
+      // Show video/film info in admin
+      else if (questionType === 'video') {
+        const videoInfo = createEl('div', 'video-info-admin');
+        const videoLabel = createEl('strong', null, '🎬 ');
+        videoInfo.appendChild(videoLabel);
+        videoInfo.appendChild(document.createTextNode(
+          (question.clipTitle || 'Film fragment') +
+          (question.source ? ' — ' + question.source : '') +
+          (question.playSeconds ? ' (eerste ' + question.playSeconds + ' sec)' : '')
+        ));
+        questionBox.appendChild(videoInfo);
+
+        // YouTube embed for playing video
+        if (question.youtubeId) {
+          const embedContainer = createEl('div', 'youtube-embed-admin');
+          const iframe = document.createElement('iframe');
+          iframe.src = 'https://www.youtube.com/embed/' + question.youtubeId + '?autoplay=0&start=0&controls=1';
+          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          iframe.allowFullscreen = true;
+          embedContainer.appendChild(iframe);
+          questionBox.appendChild(embedContainer);
+
+          // Also add a link as backup
+          const controlsDiv = createEl('div', 'music-controls-admin');
+          const ytLink = createEl('a', 'youtube-link');
+          ytLink.href = 'https://youtube.com/watch?v=' + question.youtubeId;
+          ytLink.target = '_blank';
+          ytLink.textContent = '↗ Open in YouTube';
+          controlsDiv.appendChild(ytLink);
+          questionBox.appendChild(controlsDiv);
+        }
+
+        questionBox.appendChild(createEl('div', 'answer-text', 'Antwoord: ' + (question.answer || '-')));
+      }
+      // Show image in admin
+      else if (questionType === 'image') {
+        if (question.imageUrl) {
+          const imageInfo = createEl('div', 'image-info-admin');
+          const img = document.createElement('img');
+          img.src = question.imageUrl;
+          img.alt = 'Quiz afbeelding';
+          imageInfo.appendChild(img);
+          if (question.imageCredit) {
+            imageInfo.appendChild(createEl('div', 'image-credit', question.imageCredit));
+          }
+          questionBox.appendChild(imageInfo);
+        }
+        questionBox.appendChild(createEl('div', 'answer-text', 'Antwoord: ' + (question.answer || '-')));
+      }
+      // Show MC options in admin
+      else if (questionType === 'multiple-choice' && question.options && question.options.length > 0) {
+        const optionsDiv = createEl('div', 'mc-options-admin');
+        const letters = ['A', 'B', 'C', 'D'];
+        question.options.forEach((opt, i) => {
+          const letter = letters[i];
+          const isCorrect = letter === question.answer;
+          const optEl = createEl('div', 'mc-option-admin' + (isCorrect && currentState.showAnswer ? ' correct' : ''));
+          optEl.textContent = letter + ': ' + opt;
+          optionsDiv.appendChild(optEl);
+        });
+        questionBox.appendChild(optionsDiv);
+      } else {
+        questionBox.appendChild(createEl('div', 'answer-text', 'Antwoord: ' + (question.answer || '-')));
+      }
+
       panel1.appendChild(questionBox);
 
       const controls = createEl('div', 'controls');
@@ -1134,6 +1431,10 @@
       if (confirm('Weet je zeker dat je de quiz wilt resetten? Alles wordt gewist.')) {
         socket.emit('resetQuiz');
       }
+    }
+
+    function refreshQuestions() {
+      socket.emit('refreshQuestions');
     }
 
     render();

@@ -38,112 +38,164 @@
     .container { max-width: 500px; margin: 0 auto; }
 
     header {
-      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 20px;
-      padding-bottom: 20px;
+      padding-bottom: 16px;
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    .logo { height: 32px; margin-bottom: 10px; }
-
-    header h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
+    .header-left {
+      display: flex;
+      flex-direction: column;
     }
 
     .player-name {
-      font-size: 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
       color: var(--coral);
-      font-weight: 600;
-      margin-top: 5px;
+      font-weight: 500;
     }
 
     .phase-badge {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 8px 20px;
+      padding: 6px 14px;
       background: var(--coral);
-      border-radius: 30px;
+      border-radius: 20px;
       font-family: 'Outfit', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
     }
 
     .category-badge {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 8px 20px;
-      background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
-      border-radius: 30px;
+      padding: 6px 14px;
+      background: var(--coral);
+      border-radius: 20px;
       font-family: 'Outfit', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.75rem;
       font-weight: 700;
     }
 
-    /* Status Bar */
-    .status-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      background: rgba(255,255,255,0.05);
-      padding: 14px;
-      border-radius: 16px;
-      margin-bottom: 16px;
+    /* Minimal Score Display */
+    .score-display {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 0 4px;
     }
 
-    .status-item { text-align: center; }
-    .status-label { font-size: 0.7rem; color: var(--gray-300); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
-    .status-value { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--coral); }
+    .score-display .score {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--coral);
+    }
 
-    /* Action Buttons */
-    .action-buttons { display: flex; gap: 10px; margin-bottom: 12px; }
+    .score-display .progress {
+      font-size: 0.85rem;
+      color: var(--gray-300);
+    }
 
-    .action-btn {
+    /* Bottom action buttons */
+    .bottom-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .bottom-btn {
       flex: 1;
-      padding: 16px 12px;
+      padding: 14px 16px;
       font-family: 'DM Sans', sans-serif;
       font-size: 0.9rem;
       font-weight: 600;
       border: none;
-      border-radius: 14px;
+      border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s ease;
       -webkit-tap-highlight-color: transparent;
     }
 
-    .action-btn:active { transform: scale(0.98); }
-    .action-btn:disabled { opacity: 0.5; }
+    .bottom-btn:active { transform: scale(0.98); }
+    .bottom-btn:disabled { opacity: 0.4; cursor: default; }
 
-    .skip-btn { background: rgba(239, 68, 68, 0.15); color: var(--red); border: 2px solid var(--red); }
-    .skip-btn.voted { background: var(--gray-400); color: var(--white); border-color: var(--gray-400); }
-
-    .bet-btn { background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%); color: var(--white); }
-    .bet-btn.placed { background: var(--green); }
-
-    .skip-info { text-align: center; font-size: 0.8rem; color: var(--gray-300); margin-bottom: 16px; }
-
-    /* Question Card */
-    .question-card {
-      background: rgba(255,255,255,0.05);
-      border-radius: 20px;
-      padding: 24px;
-      margin-bottom: 16px;
-      border: 1px solid rgba(255,255,255,0.08);
+    .bet-btn {
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.2);
     }
 
-    .question-number { font-size: 0.8rem; color: var(--gray-300); margin-bottom: 10px; font-weight: 500; }
+    .bet-btn.placed {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .skip-btn {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--red);
+      border: 2px solid var(--red);
+    }
+
+    .skip-btn.voted {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    /* Footer logo - at bottom of content */
+    .footer-logo {
+      text-align: center;
+      padding: 30px 0 20px 0;
+      margin-top: auto;
+    }
+
+    .footer-logo img {
+      height: 24px;
+      width: auto;
+      opacity: 0.5;
+    }
+
+    /* Hide header during quiz */
+    body.playing header { display: none; }
+
+    /* Bet alert - when you have a bet on current question */
+    .bet-alert {
+      background: linear-gradient(135deg, var(--coral) 0%, var(--coral-dark) 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    /* Question Card - Clean */
+    .question-card {
+      margin-bottom: 24px;
+    }
 
     .question-text {
       font-family: 'Outfit', sans-serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      line-height: 1.4;
-      letter-spacing: -0.01em;
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      text-align: center;
     }
+
+    .question-number { display: none; }
 
     .bet-indicator {
       display: inline-block;
@@ -189,17 +241,15 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .submit-btn:disabled { background: var(--gray-400); }
-    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:disabled { background: var(--green); cursor: default; }
+    .submit-btn:active:not(:disabled) { transform: scale(0.98); }
 
     .submitted-badge {
       text-align: center;
-      padding: 16px;
-      background: rgba(16, 185, 129, 0.15);
-      border: 2px solid var(--green);
-      border-radius: 14px;
-      margin-top: 12px;
+      padding: 10px;
+      margin-top: 16px;
       color: var(--green);
+      font-size: 0.9rem;
       font-weight: 600;
     }
 
@@ -234,6 +284,122 @@
       text-align: center;
       background: rgba(238, 109, 78, 0.15);
       color: var(--coral);
+    }
+
+    /* Answer result feedback */
+    .answer-result {
+      text-align: center;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      animation: resultPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .answer-result.correct {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.3) 100%);
+      border: 3px solid var(--green);
+    }
+
+    .answer-result.wrong {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.25) 100%);
+      border: 3px solid var(--red);
+    }
+
+    .answer-result .result-icon {
+      font-size: 3rem;
+      margin-bottom: 8px;
+    }
+
+    .answer-result .result-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .answer-result.correct .result-text { color: var(--green); }
+    .answer-result.wrong .result-text { color: var(--red); }
+
+    .answer-result .result-points {
+      font-size: 1rem;
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    @keyframes resultPop {
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Multiple Choice Buttons */
+    .mc-options { display: grid; gap: 10px; margin-bottom: 12px; }
+
+    .mc-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .mc-option:active { transform: scale(0.98); }
+    .mc-option.selected { background: rgba(238, 109, 78, 0.2); border-color: var(--coral); }
+    .mc-option.correct { background: rgba(16, 185, 129, 0.2); border-color: var(--green); }
+    .mc-option.wrong { background: rgba(239, 68, 68, 0.15); border-color: var(--red); opacity: 0.7; }
+    .mc-option.disabled { pointer-events: none; opacity: 0.7; }
+
+    .mc-letter {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .mc-option.selected .mc-letter { background: var(--coral); }
+    .mc-option.correct .mc-letter { background: var(--green); }
+
+    .mc-text { flex: 1; font-size: 1rem; line-height: 1.3; }
+
+    /* Number Input */
+    .number-input {
+      width: 100%;
+      padding: 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.95);
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .number-input:focus { outline: none; border-color: var(--coral); }
+
+    /* Question Type Badge */
+    .question-type-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-left: 8px;
+      color: var(--gray-300);
     }
 
     /* Waiting Screen */
@@ -351,9 +517,10 @@
 <body>
   <div class="container">
     <header>
-      <img src="/bureau_max_logo_wit.png" alt="Bureau Max" class="logo">
-      <h1>Quiz Night</h1>
-      <div class="player-name" id="playerNameDisplay"></div>
+      <div class="header-left">
+        <div class="player-name" id="playerNameDisplay"></div>
+        <div class="subtitle">Quiz night</div>
+      </div>
       <div id="phaseBadge"></div>
     </header>
 
@@ -365,6 +532,10 @@
     </div>
   </div>
 
+  <div class="footer-logo">
+    <img src="/bureau_max_logo_wit.png" alt="Bureau Max">
+  </div>
+
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
@@ -373,7 +544,8 @@
     let players = [];
     let categories = [];
     let myAnswers = {};
-    let myBets = new Set();
+    let myBets = new Set(); // Question IDs we have bets on
+    let betPlacedFromQuestion = -1; // Track which question we placed a bet from
     let hasVotedSkip = false;
     let skipVoteStatus = { skipVoteCount: 0, totalPlayers: 0, votesNeeded: 1 };
 
@@ -392,6 +564,19 @@
       socket.emit('playerJoin', playerName);
     }
 
+    // Re-emit playerJoin on reconnect (after server restart)
+    socket.on('connect', () => {
+      if (playerName) {
+        socket.emit('playerJoin', playerName);
+      }
+    });
+
+    // Update naam naar gekapitaliseerde versie van server
+    socket.on('nameUpdated', (capitalized) => {
+      playerName = capitalized;
+      document.getElementById('playerNameDisplay').textContent = playerName;
+    });
+
     socket.on('gameState', (state) => {
       currentState = state;
       if (state.currentQuestionIndex === 0) hasVotedSkip = false;
@@ -403,6 +588,8 @@
       const me = players.find(p => p.name === playerName);
       if (me) hasVotedSkip = me.hasVotedSkip;
       updateLeaderboard();
+      // Re-render lobby to update player count
+      if (currentState?.phase === 'lobby') render();
     });
 
     socket.on('categoryVotesUpdate', (cats) => {
@@ -417,6 +604,7 @@
 
     socket.on('betPlaced', ({ questionId }) => {
       myBets.add(questionId);
+      betPlacedFromQuestion = currentState?.currentQuestionIndex ?? -1;
       render();
     });
 
@@ -433,6 +621,9 @@
         return;
       }
 
+      // Toggle body class for playing phase (hides header)
+      document.body.classList.toggle('playing', currentState.phase === 'playing');
+
       if (currentState.phase === 'lobby') {
         phaseBadge.textContent = '';
         phaseBadge.appendChild(createEl('div', 'phase-badge', 'Wachten op start'));
@@ -445,8 +636,7 @@
         renderCategoryVoting();
       } else if (currentState.phase === 'playing') {
         phaseBadge.textContent = '';
-        phaseBadge.appendChild(createEl('div', 'category-badge', currentState.currentCategory?.name || ''));
-        leaderboard.style.display = 'block';
+        leaderboard.style.display = 'none';
         renderPlaying();
       } else if (currentState.phase === 'finished') {
         phaseBadge.textContent = '';
@@ -557,89 +747,174 @@
       const hasSubmitted = myAnswer !== '';
       const hasBet = myBets.has(questionId);
       const me = players.find(p => p.name === playerName);
-
-      // Status bar
-      const status = createEl('div', 'status-bar');
-      [
-        ['Vraag', (currentState.currentQuestionIndex + 1) + '/' + currentState.currentCategory.questionCount],
-        ['Cat.', (currentState.currentCategoryIndex + 1) + '/' + currentState.totalCategories],
-        ['Score', me?.score || 0],
-        ['Positie', '#' + (players.findIndex(p => p.name === playerName) + 1 || '-')]
-      ].forEach(([label, value]) => {
-        const item = createEl('div', 'status-item');
-        item.appendChild(createEl('div', 'status-label', label));
-        item.appendChild(createEl('div', 'status-value', String(value)));
-        status.appendChild(item);
-      });
-      mainContent.appendChild(status);
-
-      // Action buttons
       const isLastCategory = currentState.currentCategoryIndex >= currentState.totalCategories - 1;
-      const actions = createEl('div', 'action-buttons');
 
-      const skipBtn = createEl('button', 'action-btn skip-btn' + (hasVotedSkip ? ' voted' : ''),
-        hasVotedSkip ? 'Stem terug' : 'Skip Categorie');
-      skipBtn.disabled = isLastCategory;
-      skipBtn.onclick = toggleSkipVote;
-      actions.appendChild(skipBtn);
+      // Minimal score + progress
+      const scoreBar = createEl('div', 'score-display');
+      scoreBar.appendChild(createEl('span', 'score', (me?.score || 0) + ' punten'));
+      scoreBar.appendChild(createEl('span', 'progress',
+        'Vraag ' + (currentState.currentQuestionIndex + 1) + '/' + currentState.currentCategory.questionCount));
+      mainContent.appendChild(scoreBar);
 
-      const betBtn = createEl('button', 'action-btn bet-btn' + (hasBet ? ' placed' : ''),
-        hasBet ? 'Ingezet!' : 'Inzetten (2×)');
-      betBtn.disabled = hasBet || currentState.showAnswer || hasSubmitted;
-      betBtn.onclick = placeBet;
-      actions.appendChild(betBtn);
+      // Bet indicator - if you bet on THIS question from the previous one
+      if (hasBet) {
+        const betAlert = createEl('div', 'bet-alert');
+        betAlert.textContent = 'Je hebt gegokt op deze vraag!';
+        mainContent.appendChild(betAlert);
+      }
 
-      mainContent.appendChild(actions);
-      mainContent.appendChild(createEl('div', 'skip-info',
-        'Skip stemmen: ' + skipVoteStatus.skipVoteCount + '/' + skipVoteStatus.votesNeeded + ' nodig'));
-
-      // Question card
+      // Question card - clean
       const card = createEl('div', 'question-card');
-      card.appendChild(createEl('div', 'question-number', 'Vraag ' + (currentState.currentQuestionIndex + 1)));
       card.appendChild(createEl('div', 'question-text', currentState.currentQuestion.question));
-      if (hasBet) card.appendChild(createEl('div', 'bet-indicator', 'Je hebt ingezet — 2× punten!'));
       mainContent.appendChild(card);
 
       // Answer section
+      const questionType = currentState.currentQuestion.type || 'text';
+      const options = currentState.currentQuestion.options || [];
+
       if (!currentState.showAnswer) {
-        const input = createEl('input', 'answer-input');
-        input.type = 'text';
-        input.id = 'answerInput';
-        input.placeholder = 'Typ je antwoord...';
-        input.value = myAnswer;
-        if (hasSubmitted) input.readOnly = true;
-        mainContent.appendChild(input);
+        if (questionType === 'multiple-choice' && options.length > 0) {
+          // Multiple choice buttons
+          const mcContainer = createEl('div', 'mc-options');
+          const letters = ['A', 'B', 'C', 'D'];
+          options.forEach((option, idx) => {
+            const letter = letters[idx];
+            const isSelected = myAnswer === letter;
+            const btn = createEl('div', 'mc-option' + (isSelected ? ' selected' : '') + (hasSubmitted ? ' disabled' : ''));
+            btn.appendChild(createEl('span', 'mc-letter', letter));
+            btn.appendChild(createEl('span', 'mc-text', option));
+            if (!hasSubmitted) {
+              btn.onclick = () => selectMCOption(letter);
+            }
+            mcContainer.appendChild(btn);
+          });
+          mainContent.appendChild(mcContainer);
 
-        const submitBtn = createEl('button', 'submit-btn', hasSubmitted ? 'Verzonden!' : 'Verzenden');
-        submitBtn.disabled = hasSubmitted;
-        submitBtn.onclick = submitAnswer;
-        mainContent.appendChild(submitBtn);
+          if (hasSubmitted) {
+            mainContent.appendChild(createEl('div', 'submitted-badge', hasBet ? '2× ingezet!' : 'Verzonden'));
+          }
+        } else if (questionType === 'number') {
+          // Number input
+          const input = createEl('input', 'number-input');
+          input.type = 'tel';
+          input.inputMode = 'numeric';
+          input.pattern = '[0-9]*';
+          input.id = 'answerInput';
+          input.placeholder = '?';
+          input.value = myAnswer;
+          if (hasSubmitted) input.readOnly = true;
+          mainContent.appendChild(input);
 
-        if (hasSubmitted) {
-          mainContent.appendChild(createEl('div', 'submitted-badge',
-            'Je antwoord is opgeslagen' + (hasBet ? ' (2× ingezet!)' : '')));
+          const submitBtn = createEl('button', 'submit-btn', hasSubmitted ? (hasBet ? '2× ingezet!' : 'Verzonden') : 'Verzenden');
+          submitBtn.disabled = hasSubmitted;
+          submitBtn.onclick = submitAnswer;
+          mainContent.appendChild(submitBtn);
+        } else {
+          // Text input (default)
+          const input = createEl('input', 'answer-input');
+          input.type = 'text';
+          input.id = 'answerInput';
+          input.placeholder = 'Typ je antwoord...';
+          input.value = myAnswer;
+          if (hasSubmitted) input.readOnly = true;
+          mainContent.appendChild(input);
+
+          const submitBtn = createEl('button', 'submit-btn', hasSubmitted ? (hasBet ? '2× ingezet!' : 'Verzonden') : 'Verzenden');
+          submitBtn.disabled = hasSubmitted;
+          submitBtn.onclick = submitAnswer;
+          mainContent.appendChild(submitBtn);
         }
+
+        // Bottom action buttons
+        const bottomActions = createEl('div', 'bottom-actions');
+        const isLastQuestion = currentState.currentQuestionIndex >= currentState.currentCategory.questionCount - 1;
+
+        // Bet button - bets on NEXT question (blind)
+        const hasBetFromThisQuestion = betPlacedFromQuestion === currentState.currentQuestionIndex;
+        const betBtn = createEl('button', 'bottom-btn bet-btn' + (hasBetFromThisQuestion ? ' placed' : ''));
+        betBtn.textContent = hasBetFromThisQuestion ? 'Gegokt!' : 'Gok op volgende';
+        betBtn.disabled = hasBetFromThisQuestion || isLastQuestion;
+        betBtn.onclick = placeBet;
+        bottomActions.appendChild(betBtn);
+
+        // Skip button (only if not last category)
+        if (!isLastCategory) {
+          const skipBtn = createEl('button', 'bottom-btn skip-btn' + (hasVotedSkip ? ' voted' : ''));
+          if (!skipVoteStatus.canSkipYet) {
+            // Nog niet genoeg vragen beantwoord
+            const remaining = skipVoteStatus.mandatoryQuestions - skipVoteStatus.questionsAnswered;
+            skipBtn.textContent = 'Skip (nog ' + remaining + ' vraag' + (remaining > 1 ? 'en' : '') + ')';
+            skipBtn.disabled = true;
+          } else {
+            skipBtn.textContent = 'Skip (' + skipVoteStatus.skipVoteCount + '/' + skipVoteStatus.votesNeeded + ')';
+            skipBtn.onclick = toggleSkipVote;
+          }
+          bottomActions.appendChild(skipBtn);
+        }
+
+        mainContent.appendChild(bottomActions);
       } else {
+        // Answer revealed - show result feedback if player submitted an answer
+        const me = players.find(p => p.name === playerName);
+        if (hasSubmitted && me) {
+          const resultDiv = createEl('div', 'answer-result ' + (me.wasCorrect ? 'correct' : 'wrong'));
+          resultDiv.appendChild(createEl('div', 'result-icon', me.wasCorrect ? '🎉' : '😅'));
+          resultDiv.appendChild(createEl('div', 'result-text', me.wasCorrect ? 'Correct!' : 'Helaas!'));
+          if (hasBet) {
+            const pointsText = me.wasCorrect ? '+2 punten (dubbel!)' : '-1 punt (inzet verloren)';
+            resultDiv.appendChild(createEl('div', 'result-points', pointsText));
+          } else if (me.wasCorrect) {
+            resultDiv.appendChild(createEl('div', 'result-points', '+1 punt'));
+          }
+          mainContent.appendChild(resultDiv);
+        }
+
         const reveal = createEl('div', 'answer-reveal');
         reveal.appendChild(createEl('div', 'label', 'Het juiste antwoord:'));
         reveal.appendChild(createEl('div', 'correct-answer', currentState.currentQuestion.answer));
         mainContent.appendChild(reveal);
 
-        if (hasSubmitted) {
+        if (questionType === 'multiple-choice' && options.length > 0) {
+          // Show MC options with correct/wrong highlighting
+          const mcContainer = createEl('div', 'mc-options');
+          mcContainer.style.marginTop = '16px';
+          const letters = ['A', 'B', 'C', 'D'];
+          const correctAnswer = currentState.currentQuestion.answer;
+          options.forEach((option, idx) => {
+            const letter = letters[idx];
+            const isCorrect = letter === correctAnswer;
+            const wasSelected = myAnswer === letter;
+            let classes = 'mc-option disabled';
+            if (isCorrect) classes += ' correct';
+            else if (wasSelected) classes += ' wrong';
+
+            const btn = createEl('div', classes);
+            btn.appendChild(createEl('span', 'mc-letter', letter));
+            btn.appendChild(createEl('span', 'mc-text', option));
+            mcContainer.appendChild(btn);
+          });
+          mainContent.appendChild(mcContainer);
+        } else if (hasSubmitted) {
           const yours = createEl('div', 'your-answer');
           yours.appendChild(createEl('div', 'label', 'Jouw antwoord:'));
           yours.appendChild(createEl('div', 'text', myAnswer));
           mainContent.appendChild(yours);
         }
 
-        if (hasBet) {
-          mainContent.appendChild(createEl('div', 'bet-result', 'Wacht op punten van de quizmaster...'));
-        }
+        // Bet result info removed - now shown in the result feedback banner above
       }
 
-      if (!hasSubmitted && !currentState.showAnswer) {
+      if (!hasSubmitted && !currentState.showAnswer && questionType !== 'multiple-choice') {
         setTimeout(() => { const i = document.getElementById('answerInput'); if (i) i.focus(); }, 100);
       }
+    }
+
+    function selectMCOption(letter) {
+      if (!currentState?.currentQuestion || currentState.showAnswer) return;
+      const questionId = currentState.currentQuestion.id;
+      myAnswers[questionId] = letter;
+      socket.emit('submitAnswer', { playerName, questionId, answer: letter });
+      render();
     }
 
     function renderFinished() {

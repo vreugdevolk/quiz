@@ -1,263 +1,299 @@
 {
   "categories": [
     {
-      "id": 1,
-      "name": "Aardrijkskunde",
+      "name": "Natuur",
       "questions": [
-        {"id": 101, "question": "Wat is de hoofdstad van Australië?", "answer": "Canberra"},
-        {"id": 102, "question": "Welk land heeft de meeste inwoners?", "answer": "China"},
-        {"id": 103, "question": "In welk werelddeel ligt Egypte?", "answer": "Afrika"},
-        {"id": 104, "question": "Wat is de grootste oceaan?", "answer": "Stille Oceaan"},
-        {"id": 105, "question": "Welke rivier stroomt door Parijs?", "answer": "Seine"},
-        {"id": 106, "question": "Hoeveel landen grenzen aan Duitsland?", "answer": "9"},
-        {"id": 107, "question": "Wat is de hoofdstad van Canada?", "answer": "Ottawa"},
-        {"id": 108, "question": "In welk land ligt de Mount Everest?", "answer": "Nepal"},
-        {"id": 109, "question": "Wat is het kleinste land ter wereld?", "answer": "Vaticaanstad"},
-        {"id": 110, "question": "Welke zee ligt tussen Europa en Afrika?", "answer": "Middellandse Zee"},
-        {"id": 111, "question": "Wat is de langste rivier ter wereld?", "answer": "Nijl"},
-        {"id": 112, "question": "Welk land heeft de vorm van een laars?", "answer": "Italië"},
-        {"id": 113, "question": "Wat is de hoofdstad van Japan?", "answer": "Tokio"},
-        {"id": 114, "question": "Hoeveel continenten zijn er?", "answer": "7"},
-        {"id": 115, "question": "Welk land is het grootst qua oppervlakte?", "answer": "Rusland"},
-        {"id": 116, "question": "Waar ligt de Sahara?", "answer": "Afrika"},
-        {"id": 117, "question": "Wat is de hoofdstad van Brazilië?", "answer": "Brasília"},
-        {"id": 118, "question": "Welke bergen scheiden Frankrijk van Spanje?", "answer": "Pyreneeën"},
-        {"id": 119, "question": "In welk land ligt Timbuktu?", "answer": "Mali"},
-        {"id": 120, "question": "Wat is de diepste plek in de oceaan?", "answer": "Marianentrog"}
+        {
+          "id": 1001,
+          "type": "multiple-choice",
+          "question": "Welk dier heeft de hoogste bloeddruk van alle dieren?",
+          "options": ["Olifant", "Giraffe", "Walvis", "Nijlpaard"],
+          "answer": "B"
+        },
+        {
+          "id": 1002,
+          "type": "number",
+          "question": "Hoeveel harten heeft een octopus?",
+          "answer": "3",
+          "tolerance": 0
+        },
+        {
+          "id": 1003,
+          "type": "text",
+          "question": "Wat is het snelste landdier ter wereld?",
+          "answer": "Jachtluipaard",
+          "acceptedAnswers": ["cheeta", "cheetah", "gepard"]
+        },
+        {
+          "id": 1004,
+          "type": "multiple-choice",
+          "question": "Welke kleur heeft de huid van een ijsbeer onder zijn witte vacht?",
+          "options": ["Roze", "Wit", "Zwart", "Grijs"],
+          "answer": "C"
+        },
+        {
+          "id": 1005,
+          "type": "number",
+          "question": "Hoeveel magen heeft een koe?",
+          "answer": "4",
+          "tolerance": 0
+        },
+        {
+          "id": 1006,
+          "type": "text",
+          "question": "Welk zoogdier is het enige dat echt kan vliegen?",
+          "answer": "Vleermuis"
+        },
+        {
+          "id": 1007,
+          "type": "multiple-choice",
+          "question": "Wat is het grootste dier op aarde?",
+          "options": ["Afrikaanse olifant", "Blauwe vinvis", "Potvis", "Walvishaai"],
+          "answer": "B"
+        },
+        {
+          "id": 1008,
+          "type": "number",
+          "question": "Hoeveel poten heeft een spin?",
+          "answer": "8",
+          "tolerance": 0
+        },
+        {
+          "id": 1009,
+          "type": "text",
+          "question": "Welk dier eet bijna alleen bamboe en kan er 40 kg per dag van eten?",
+          "answer": "Panda"
+        },
+        {
+          "id": 1010,
+          "type": "multiple-choice",
+          "question": "Bij welk dier is het mannetje zwanger en bevalt?",
+          "options": ["Pinguïn", "Zeepaardje", "Kangoeroe", "Koala"],
+          "answer": "B"
+        },
+        {
+          "id": 1011,
+          "type": "number",
+          "question": "Hoeveel armen heeft een octopus?",
+          "answer": "8",
+          "tolerance": 0
+        },
+        {
+          "id": 1012,
+          "type": "text",
+          "question": "Hoe noem je een vrouwelijk paard?",
+          "answer": "Merrie"
+        },
+        {
+          "id": 1013,
+          "type": "multiple-choice",
+          "question": "Welke vogel kan NIET vliegen maar is wel de snelste loper?",
+          "options": ["Pinguïn", "Kiwi", "Struisvogel", "Emoe"],
+          "answer": "C"
+        },
+        {
+          "id": 1014,
+          "type": "number",
+          "question": "Hoeveel maanden is een olifant zwanger (ongeveer)?",
+          "answer": "22",
+          "tolerance": 2
+        },
+        {
+          "id": 1015,
+          "type": "text",
+          "question": "Welk dier staat bekend om het bouwen van dammen?",
+          "answer": "Bever"
+        },
+        {
+          "id": 1016,
+          "type": "multiple-choice",
+          "question": "Wat eet een koala voornamelijk?",
+          "options": ["Bamboe", "Eucalyptusbladeren", "Gras", "Insecten"],
+          "answer": "B"
+        },
+        {
+          "id": 1017,
+          "type": "number",
+          "question": "Hoeveel levens heeft een kat spreekwoordelijk?",
+          "answer": "9",
+          "tolerance": 0
+        },
+        {
+          "id": 1018,
+          "type": "text",
+          "question": "Welk dier wordt ook wel 'zwaardwalvis' genoemd en is eigenlijk een dolfijn?",
+          "answer": "Orka"
+        },
+        {
+          "id": 1019,
+          "type": "multiple-choice",
+          "question": "Welk dier heeft het sterkste bijtvermogen ter wereld?",
+          "options": ["Haai", "Leeuw", "Krokodil", "Hyena"],
+          "answer": "C"
+        },
+        {
+          "id": 1020,
+          "type": "number",
+          "question": "Hoeveel procent van zijn dag slaapt een koala (ongeveer)?",
+          "answer": "80",
+          "tolerance": 10
+        }
       ]
     },
     {
-      "id": 2,
-      "name": "Geschiedenis",
-      "questions": [
-        {"id": 201, "question": "In welk jaar begon de Tweede Wereldoorlog?", "answer": "1939"},
-        {"id": 202, "question": "Wie was de eerste president van Amerika?", "answer": "George Washington"},
-        {"id": 203, "question": "In welk jaar viel de Berlijnse Muur?", "answer": "1989"},
-        {"id": 204, "question": "Wie ontdekte Amerika in 1492?", "answer": "Columbus"},
-        {"id": 205, "question": "Welk rijk werd geregeerd door farao's?", "answer": "Egypte"},
-        {"id": 206, "question": "In welke eeuw was de Gouden Eeuw in Nederland?", "answer": "17e eeuw"},
-        {"id": 207, "question": "Wie schreef het dagboek tijdens WOII dat wereldberoemd werd?", "answer": "Anne Frank"},
-        {"id": 208, "question": "Welke oorlog duurde van 1914 tot 1918?", "answer": "Eerste Wereldoorlog"},
-        {"id": 209, "question": "Wie was de Britse premier tijdens WOII?", "answer": "Winston Churchill"},
-        {"id": 210, "question": "In welk jaar landde de eerste mens op de maan?", "answer": "1969"},
-        {"id": 211, "question": "Welk schip zonk in 1912?", "answer": "Titanic"},
-        {"id": 212, "question": "Wie was Julius Caesar?", "answer": "Romeinse keizer/dictator"},
-        {"id": 213, "question": "In welk jaar werd Nederland bevrijd?", "answer": "1945"},
-        {"id": 214, "question": "Welke revolutie begon in 1789?", "answer": "Franse Revolutie"},
-        {"id": 215, "question": "Wie bouwde de piramides?", "answer": "Egyptenaren"},
-        {"id": 216, "question": "Welke muur bouwden de Chinezen?", "answer": "Chinese Muur"},
-        {"id": 217, "question": "In welk jaar begon de VOC?", "answer": "1602"},
-        {"id": 218, "question": "Wie was Napoleon?", "answer": "Franse keizer"},
-        {"id": 219, "question": "Welk volk bouwde het Colosseum?", "answer": "Romeinen"},
-        {"id": 220, "question": "In welk jaar werd de Euro ingevoerd?", "answer": "2002"}
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Sport",
-      "questions": [
-        {"id": 301, "question": "Hoeveel spelers staan er in een voetbalelftal?", "answer": "11"},
-        {"id": 302, "question": "Welk land won het WK voetbal in 2010?", "answer": "Spanje"},
-        {"id": 303, "question": "Hoe lang is een marathon in kilometers?", "answer": "42,195 km"},
-        {"id": 304, "question": "In welke sport gebruik je een shuttlecock?", "answer": "Badminton"},
-        {"id": 305, "question": "Hoeveel Grand Slams zijn er in tennis?", "answer": "4"},
-        {"id": 306, "question": "Welk land heeft de meeste Olympische gouden medailles?", "answer": "Verenigde Staten"},
-        {"id": 307, "question": "Wat is de snelste bal in sport?", "answer": "Badminton shuttle"},
-        {"id": 308, "question": "Hoeveel holes heeft een standaard golfbaan?", "answer": "18"},
-        {"id": 309, "question": "Welke Nederlander won de Tour de France?", "answer": "Joop Zoetemelk / Jan Janssen"},
-        {"id": 310, "question": "Hoe heet de hoogste prijs in tennis?", "answer": "Grand Slam"},
-        {"id": 311, "question": "In welke sport is Max Verstappen actief?", "answer": "Formule 1"},
-        {"id": 312, "question": "Hoeveel punten is een touchdown waard?", "answer": "6"},
-        {"id": 313, "question": "Welke sport wordt gespeeld op Wimbledon?", "answer": "Tennis"},
-        {"id": 314, "question": "Hoe vaak hebben de Olympische Spelen plaatsgevonden in Nederland?", "answer": "1 (1928)"},
-        {"id": 315, "question": "Wat is de nationale sport van Japan?", "answer": "Sumo"},
-        {"id": 316, "question": "Hoeveel periodes heeft een ijshockeywedstrijd?", "answer": "3"},
-        {"id": 317, "question": "Welke voetbalclub komt uit Manchester en speelt in het rood?", "answer": "Manchester United"},
-        {"id": 318, "question": "Hoe lang duurt een basketbalwedstrijd in de NBA?", "answer": "48 minuten"},
-        {"id": 319, "question": "In welke sport is Epke Zonderland beroemd?", "answer": "Turnen"},
-        {"id": 320, "question": "Hoeveel sets moet je winnen in een tennisfinale Grand Slam (heren)?", "answer": "3 (van de 5)"}
-      ]
-    },
-    {
-      "id": 4,
       "name": "Muziek",
       "questions": [
-        {"id": 401, "question": "Welke band zong 'Bohemian Rhapsody'?", "answer": "Queen"},
-        {"id": 402, "question": "Uit welk land komt ABBA?", "answer": "Zweden"},
-        {"id": 403, "question": "Wie is de 'King of Pop'?", "answer": "Michael Jackson"},
-        {"id": 404, "question": "Hoeveel snaren heeft een standaard gitaar?", "answer": "6"},
-        {"id": 405, "question": "Welke Nederlandse zanger zingt 'Kleine Jongen'?", "answer": "André Hazes"},
-        {"id": 406, "question": "Uit welke stad komen The Beatles?", "answer": "Liverpool"},
-        {"id": 407, "question": "Wie componeerde de Negende Symfonie?", "answer": "Beethoven"},
-        {"id": 408, "question": "Wat was de echte naam van Prince?", "answer": "Prince Rogers Nelson"},
-        {"id": 409, "question": "Welke zangeres zingt 'Rolling in the Deep'?", "answer": "Adele"},
-        {"id": 410, "question": "Hoeveel toetsen heeft een piano?", "answer": "88"},
-        {"id": 411, "question": "Wie zingt 'Blinding Lights'?", "answer": "The Weeknd"},
-        {"id": 412, "question": "Welke Nederlandse DJ is wereldberoemd?", "answer": "Tiësto / Martin Garrix / Armin van Buuren"},
-        {"id": 413, "question": "Wat is de echte naam van Bono?", "answer": "Paul Hewson"},
-        {"id": 414, "question": "Welke band zong 'Smells Like Teen Spirit'?", "answer": "Nirvana"},
-        {"id": 415, "question": "Uit welk land komt reggae?", "answer": "Jamaica"},
-        {"id": 416, "question": "Wie schreef 'De Vier Jaargetijden'?", "answer": "Vivaldi"},
-        {"id": 417, "question": "Welke zangeres staat bekend als 'Queen B'?", "answer": "Beyoncé"},
-        {"id": 418, "question": "Hoeveel leden had de band The Beatles?", "answer": "4"},
-        {"id": 419, "question": "Welk instrument bespeelde Jimi Hendrix?", "answer": "Gitaar"},
-        {"id": 420, "question": "Wie zingt 'Shape of You'?", "answer": "Ed Sheeran"}
+        {
+          "id": 2001,
+          "type": "multiple-choice",
+          "question": "Welke artiest heeft de hit 'Shape of You' uitgebracht?",
+          "options": ["Justin Bieber", "Ed Sheeran", "Bruno Mars", "The Weeknd"],
+          "answer": "B",
+          "difficulty": 1
+        },
+        {
+          "id": 2002,
+          "type": "music",
+          "question": "Welke hit uit 2023 is dit?",
+          "songTitle": "Flowers",
+          "artist": "Miley Cyrus",
+          "answer": "Flowers",
+          "acceptedAnswers": ["flowers miley cyrus", "flowers - miley cyrus"],
+          "youtubeId": "G7KNmW9a75Y",
+          "playSeconds": 10,
+          "difficulty": 2
+        },
+        {
+          "id": 2003,
+          "type": "music",
+          "question": "Herken dit klassieke nummer uit de jaren 80!",
+          "songTitle": "Take On Me",
+          "artist": "a-ha",
+          "answer": "Take On Me",
+          "acceptedAnswers": ["take on me", "take on me a-ha", "a-ha take on me"],
+          "youtubeId": "djV11Xbc914",
+          "playSeconds": 15,
+          "difficulty": 2
+        },
+        {
+          "id": 2004,
+          "type": "number",
+          "question": "In welk jaar werd Queen's 'Bohemian Rhapsody' uitgebracht?",
+          "answer": "1975",
+          "tolerance": 2,
+          "difficulty": 2
+        },
+        {
+          "id": 2005,
+          "type": "text",
+          "question": "Welke Nederlandse band heeft het nummer 'Radar Love'?",
+          "answer": "Golden Earring",
+          "acceptedAnswers": ["golden earring", "goldenearring"],
+          "difficulty": 3
+        }
       ]
     },
     {
-      "id": 5,
-      "name": "Film & TV",
+      "name": "Films",
       "questions": [
-        {"id": 501, "question": "Wie speelt Jack in Titanic?", "answer": "Leonardo DiCaprio"},
-        {"id": 502, "question": "Hoeveel Harry Potter films zijn er?", "answer": "8"},
-        {"id": 503, "question": "Wie regisseerde Pulp Fiction?", "answer": "Quentin Tarantino"},
-        {"id": 504, "question": "Welke acteur speelt Iron Man?", "answer": "Robert Downey Jr."},
-        {"id": 505, "question": "In welk jaar kwam de eerste Star Wars film uit?", "answer": "1977"},
-        {"id": 506, "question": "Hoe heet de leeuw in The Lion King?", "answer": "Simba"},
-        {"id": 507, "question": "Wie speelt Forrest Gump?", "answer": "Tom Hanks"},
-        {"id": 508, "question": "Hoeveel seizoenen heeft Game of Thrones?", "answer": "8"},
-        {"id": 509, "question": "Welke serie speelt zich af in Albuquerque met een scheikundeleraar?", "answer": "Breaking Bad"},
-        {"id": 510, "question": "Wie is de stem van Woody in Toy Story?", "answer": "Tom Hanks"},
-        {"id": 511, "question": "In welke stad speelt Friends zich af?", "answer": "New York"},
-        {"id": 512, "question": "Wie speelt de Joker in The Dark Knight?", "answer": "Heath Ledger"},
-        {"id": 513, "question": "Hoeveel Lord of the Rings films zijn er?", "answer": "3"},
-        {"id": 514, "question": "Welke Nederlandse film won een Oscar?", "answer": "Karakter"},
-        {"id": 515, "question": "Wie creëerde The Simpsons?", "answer": "Matt Groening"},
-        {"id": 516, "question": "Welke acteur speelt James Bond het vaakst?", "answer": "Roger Moore (7x)"},
-        {"id": 517, "question": "In welk jaar kwam Netflix naar Nederland?", "answer": "2013"},
-        {"id": 518, "question": "Wie speelt Hermione in Harry Potter?", "answer": "Emma Watson"},
-        {"id": 519, "question": "Welke animatiestudio maakte Frozen?", "answer": "Disney"},
-        {"id": 520, "question": "Hoeveel afleveringen heeft een standaard seizoen van een Netflix serie?", "answer": "8-10"}
+        {
+          "id": 3001,
+          "type": "multiple-choice",
+          "question": "Welke film won de Oscar voor Beste Film in 1994?",
+          "options": ["Pulp Fiction", "Forrest Gump", "The Shawshank Redemption", "The Lion King"],
+          "answer": "B",
+          "difficulty": 1
+        },
+        {
+          "id": 3002,
+          "type": "video",
+          "question": "Uit welke film komt dit iconische citaat?",
+          "clipTitle": "\"I'll be back\"",
+          "source": "Arnold Schwarzenegger",
+          "answer": "The Terminator",
+          "acceptedAnswers": ["terminator", "de terminator"],
+          "youtubeId": "nqWCUWNn5As",
+          "playSeconds": 8,
+          "difficulty": 2
+        },
+        {
+          "id": 3003,
+          "type": "video",
+          "question": "Herken deze klassieke filmscène!",
+          "clipTitle": "\"Here's Johnny!\"",
+          "source": "Jack Nicholson",
+          "answer": "The Shining",
+          "acceptedAnswers": ["shining", "de shining"],
+          "youtubeId": "WDpipB4yehk",
+          "playSeconds": 10,
+          "difficulty": 2
+        },
+        {
+          "id": 3004,
+          "type": "number",
+          "question": "In welk jaar kwam de eerste Star Wars film uit?",
+          "answer": "1977",
+          "tolerance": 1,
+          "difficulty": 2
+        },
+        {
+          "id": 3005,
+          "type": "text",
+          "question": "Wie speelt de hoofdrol in de Pirates of the Caribbean films?",
+          "answer": "Johnny Depp",
+          "acceptedAnswers": ["depp", "johnny depp", "jack sparrow"],
+          "difficulty": 2
+        }
       ]
     },
     {
-      "id": 6,
-      "name": "Wetenschap",
+      "name": "Beroemdheden",
       "questions": [
-        {"id": 601, "question": "Wat is het chemisch symbool voor water?", "answer": "H2O"},
-        {"id": 602, "question": "Hoeveel planeten heeft ons zonnestelsel?", "answer": "8"},
-        {"id": 603, "question": "Wie bedacht de relativiteitstheorie?", "answer": "Einstein"},
-        {"id": 604, "question": "Wat is het grootste orgaan van het menselijk lichaam?", "answer": "Huid"},
-        {"id": 605, "question": "Hoeveel botten heeft een volwassen mens?", "answer": "206"},
-        {"id": 606, "question": "Wat is de chemische formule van tafelzout?", "answer": "NaCl"},
-        {"id": 607, "question": "Welke planeet is het dichtst bij de zon?", "answer": "Mercurius"},
-        {"id": 608, "question": "Wat is de snelheid van licht in km/s?", "answer": "300.000 km/s"},
-        {"id": 609, "question": "Hoeveel chromosomen heeft een mens?", "answer": "46"},
-        {"id": 610, "question": "Wie ontdekte penicilline?", "answer": "Alexander Fleming"},
-        {"id": 611, "question": "Wat is het hardste natuurlijke materiaal?", "answer": "Diamant"},
-        {"id": 612, "question": "Hoeveel elementen staan er in het periodiek systeem?", "answer": "118"},
-        {"id": 613, "question": "Welk gas ademen planten in?", "answer": "CO2"},
-        {"id": 614, "question": "Wat is de eenheid van elektrische stroom?", "answer": "Ampère"},
-        {"id": 615, "question": "Hoeveel tanden heeft een volwassen mens?", "answer": "32"},
-        {"id": 616, "question": "Welke planeet staat bekend als de rode planeet?", "answer": "Mars"},
-        {"id": 617, "question": "Wat is DNA een afkorting voor?", "answer": "Deoxyribonucleïnezuur"},
-        {"id": 618, "question": "Hoeveel graden Celsius is het absolute nulpunt?", "answer": "-273,15"},
-        {"id": 619, "question": "Wie formuleerde de zwaartekracht?", "answer": "Newton"},
-        {"id": 620, "question": "Wat is het symbool voor goud?", "answer": "Au"}
-      ]
-    },
-    {
-      "id": 7,
-      "name": "Eten & Drinken",
-      "questions": [
-        {"id": 701, "question": "Van welk land komt sushi?", "answer": "Japan"},
-        {"id": 702, "question": "Wat is het hoofdingrediënt van guacamole?", "answer": "Avocado"},
-        {"id": 703, "question": "Welk land is beroemd om paella?", "answer": "Spanje"},
-        {"id": 704, "question": "Hoeveel smaken kan de tong onderscheiden?", "answer": "5"},
-        {"id": 705, "question": "Van welk dier komt prosciutto?", "answer": "Varken"},
-        {"id": 706, "question": "Wat is de nationale drank van Schotland?", "answer": "Whisky"},
-        {"id": 707, "question": "Welke kaas komt uit Gouda?", "answer": "Goudse kaas"},
-        {"id": 708, "question": "Van welk fruit wordt wijn meestal gemaakt?", "answer": "Druiven"},
-        {"id": 709, "question": "Wat is het hoofdingrediënt van hummus?", "answer": "Kikkererwten"},
-        {"id": 710, "question": "Uit welk land komt de croissant oorspronkelijk?", "answer": "Oostenrijk"},
-        {"id": 711, "question": "Hoeveel calorieën zit er in water?", "answer": "0"},
-        {"id": 712, "question": "Welk land is de grootste koffieproducent?", "answer": "Brazilië"},
-        {"id": 713, "question": "Wat is wasabi?", "answer": "Japanse mierikswortel"},
-        {"id": 714, "question": "Van welk land komt de hamburger?", "answer": "Verenigde Staten/Duitsland"},
-        {"id": 715, "question": "Welke vitamine zit veel in sinaasappels?", "answer": "Vitamine C"},
-        {"id": 716, "question": "Wat is het nationale gerecht van België?", "answer": "Friet met mosselen"},
-        {"id": 717, "question": "Van welk graan wordt bier gemaakt?", "answer": "Gerst"},
-        {"id": 718, "question": "Wat is de pittigste peper ter wereld?", "answer": "Carolina Reaper"},
-        {"id": 719, "question": "Welke noot zit in pesto?", "answer": "Pijnboompit"},
-        {"id": 720, "question": "Wat is het verschil tussen jam en confituur?", "answer": "Fruitgehalte/stukjes fruit"}
-      ]
-    },
-    {
-      "id": 8,
-      "name": "Nederland",
-      "questions": [
-        {"id": 801, "question": "Hoeveel provincies heeft Nederland?", "answer": "12"},
-        {"id": 802, "question": "Wat is de langste rivier in Nederland?", "answer": "De Rijn"},
-        {"id": 803, "question": "In welk jaar was de Watersnoodramp?", "answer": "1953"},
-        {"id": 804, "question": "Wat is de hoogste berg van Nederland?", "answer": "Vaalserberg"},
-        {"id": 805, "question": "Wie is de huidige koning?", "answer": "Willem-Alexander"},
-        {"id": 806, "question": "Hoeveel inwoners heeft Nederland (afgerond)?", "answer": "17-18 miljoen"},
-        {"id": 807, "question": "Welke stad is de grootste haven van Europa?", "answer": "Rotterdam"},
-        {"id": 808, "question": "Wat betekent VOC?", "answer": "Verenigde Oost-Indische Compagnie"},
-        {"id": 809, "question": "In welke provincie ligt Maastricht?", "answer": "Limburg"},
-        {"id": 810, "question": "Wat is de nationale bloem?", "answer": "Tulp"},
-        {"id": 811, "question": "Hoeveel Waddeneilanden heeft Nederland?", "answer": "5"},
-        {"id": 812, "question": "Welke Nederlandse schilder sneed zijn oor af?", "answer": "Van Gogh"},
-        {"id": 813, "question": "Wat is de grootste stad van Nederland?", "answer": "Amsterdam"},
-        {"id": 814, "question": "In welk jaar werd Willem van Oranje vermoord?", "answer": "1584"},
-        {"id": 815, "question": "Welke snelweg verbindt Amsterdam met Utrecht?", "answer": "A2"},
-        {"id": 816, "question": "Wat is de kleinste provincie?", "answer": "Utrecht"},
-        {"id": 817, "question": "Welk Nederlands bedrijf maakt chipmachines?", "answer": "ASML"},
-        {"id": 818, "question": "Hoeveel meter ligt Nederland gemiddeld onder zeeniveau?", "answer": "1 meter"},
-        {"id": 819, "question": "Welke stad staat bekend om carnaval?", "answer": "Den Bosch / Maastricht"},
-        {"id": 820, "question": "Wat is Koningsdag?", "answer": "27 april"}
-      ]
-    },
-    {
-      "id": 9,
-      "name": "Natuur & Dieren",
-      "questions": [
-        {"id": 901, "question": "Wat is het grootste dier op aarde?", "answer": "Blauwe vinvis"},
-        {"id": 902, "question": "Hoeveel poten heeft een spin?", "answer": "8"},
-        {"id": 903, "question": "Welk dier is het snelste op land?", "answer": "Cheeta/Jachtluipaard"},
-        {"id": 904, "question": "Hoeveel harten heeft een octopus?", "answer": "3"},
-        {"id": 905, "question": "Wat is de grootste katachtige?", "answer": "Tijger"},
-        {"id": 906, "question": "Welk dier kan het langst zonder water?", "answer": "Kameel"},
-        {"id": 907, "question": "Hoeveel soorten pinguïns zijn er?", "answer": "17-18"},
-        {"id": 908, "question": "Wat eet een koala?", "answer": "Eucalyptusbladeren"},
-        {"id": 909, "question": "Welk zoogdier kan vliegen?", "answer": "Vleermuis"},
-        {"id": 910, "question": "Hoeveel jaar kan een schildpad worden?", "answer": "100-150 jaar"},
-        {"id": 911, "question": "Wat is het giftigste dier ter wereld?", "answer": "Kokervormige kwal/gifkikker"},
-        {"id": 912, "question": "Welke vogel kan niet vliegen maar rent het snelst?", "answer": "Struisvogel"},
-        {"id": 913, "question": "Hoeveel tanden heeft een haai?", "answer": "Tot 3000"},
-        {"id": 914, "question": "Welk dier heeft de langste nek?", "answer": "Giraffe"},
-        {"id": 915, "question": "Wat is een groep wolven?", "answer": "Roedel"},
-        {"id": 916, "question": "Hoeveel procent van de aarde is water?", "answer": "71%"},
-        {"id": 917, "question": "Welk dier maakt honing?", "answer": "Bij"},
-        {"id": 918, "question": "Wat is het grootste roofdier op land?", "answer": "IJsbeer"},
-        {"id": 919, "question": "Hoeveel kleuren heeft een regenboog?", "answer": "7"},
-        {"id": 920, "question": "Welke boom levert kurk?", "answer": "Kurkeik"}
-      ]
-    },
-    {
-      "id": 10,
-      "name": "Random Kennis",
-      "questions": [
-        {"id": 1001, "question": "Hoeveel dagen heeft februari in een schrikkeljaar?", "answer": "29"},
-        {"id": 1002, "question": "Wat is de angst voor spinnen?", "answer": "Arachnofobie"},
-        {"id": 1003, "question": "Hoeveel minuten heeft een uur?", "answer": "60"},
-        {"id": 1004, "question": "Wat betekent 'www' in een webadres?", "answer": "World Wide Web"},
-        {"id": 1005, "question": "Hoeveel letters heeft het alfabet?", "answer": "26"},
-        {"id": 1006, "question": "Wat is de meest gesproken taal ter wereld?", "answer": "Engels/Mandarijn"},
-        {"id": 1007, "question": "Hoeveel sterrenbeelden zijn er?", "answer": "12"},
-        {"id": 1008, "question": "Wat is het langste woord in het Nederlands?", "answer": "Meervoudigepersoonlijkheidsstoornis"},
-        {"id": 1009, "question": "Hoeveel seconden zitten er in een uur?", "answer": "3600"},
-        {"id": 1010, "question": "Wat is de meest verkochte auto ter wereld?", "answer": "Toyota Corolla"},
-        {"id": 1011, "question": "Hoeveel graden is een rechte hoek?", "answer": "90"},
-        {"id": 1012, "question": "Wat betekent IQ?", "answer": "Intelligentiequotiënt"},
-        {"id": 1013, "question": "Hoeveel zetels heeft de Tweede Kamer?", "answer": "150"},
-        {"id": 1014, "question": "Wat is het meest gebruikte wachtwoord?", "answer": "123456"},
-        {"id": 1015, "question": "Hoeveel weken heeft een jaar?", "answer": "52"},
-        {"id": 1016, "question": "Welke kleur krijg je als je geel en blauw mengt?", "answer": "Groen"},
-        {"id": 1017, "question": "Wat is de fear of heights?", "answer": "Acrofobie/Hoogtevrees"},
-        {"id": 1018, "question": "Hoeveel speelkaarten zitten in een standaard deck?", "answer": "52"},
-        {"id": 1019, "question": "Wat is het meest gestolen voedsel ter wereld?", "answer": "Kaas"},
-        {"id": 1020, "question": "Hoeveel nullen heeft een miljard?", "answer": "9"}
+        {
+          "id": 4001,
+          "type": "image",
+          "question": "Wie is deze wetenschapper?",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head.jpg/440px-Albert_Einstein_Head.jpg",
+          "imageCredit": "Foto: Wikimedia Commons",
+          "answer": "Albert Einstein",
+          "acceptedAnswers": ["einstein"]
+        },
+        {
+          "id": 4002,
+          "type": "image",
+          "question": "Wie is deze Nederlandse koning?",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Koning_Willem-Alexander.jpg/440px-Koning_Willem-Alexander.jpg",
+          "imageCredit": "Foto: Wikimedia Commons",
+          "answer": "Willem-Alexander",
+          "acceptedAnswers": ["koning willem-alexander", "willem alexander", "de koning"]
+        },
+        {
+          "id": 4003,
+          "type": "image",
+          "question": "Welke schilder maakte dit zelfportret?",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg/440px-Rembrandt_van_Rijn_-_Self-Portrait_-_Google_Art_Project.jpg",
+          "imageCredit": "Zelfportret, ca. 1659",
+          "answer": "Rembrandt",
+          "acceptedAnswers": ["rembrandt van rijn", "rembrandt van rhijn"]
+        },
+        {
+          "id": 4004,
+          "type": "image",
+          "question": "Wie is deze voetballegende?",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Johan_Cruijff_1974c.jpg/440px-Johan_Cruijff_1974c.jpg",
+          "imageCredit": "Foto: Wikimedia Commons",
+          "answer": "Johan Cruijff",
+          "acceptedAnswers": ["cruijff", "cruyff", "johan cruyff"]
+        },
+        {
+          "id": 4005,
+          "type": "image",
+          "question": "Wie is deze Britse koningin?",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Queen_Elizabeth_II_in_March_2015.jpg/440px-Queen_Elizabeth_II_in_March_2015.jpg",
+          "imageCredit": "Foto: Wikimedia Commons",
+          "answer": "Elizabeth II",
+          "acceptedAnswers": ["queen elizabeth", "koningin elizabeth", "elizabeth", "elizabeth 2"]
+        }
       ]
     }
   ]
