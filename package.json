@@ -1,0 +1,14 @@
+{
+  "name": "pub-quiz-app",
+  "version": "1.0.0",
+  "description": "A pub quiz app for big screen display with phone participation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2"
+  }
+}

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pub Quiz - Admin Panel</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a2e;
+      min-height: 100vh;
+      color: white;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      color: #e94560;
+    }
+
+    .phase-indicator {
+      padding: 8px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .reset-btn {
+      padding: 10px 20px;
+      background: #e94560;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1200px) {
+      .main-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .panel.full-width {
+      grid-column: span 3;
+    }
+
+    @media (max-width: 1200px) {
+      .panel.full-width {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .panel.full-width {
+        grid-column: span 1;
+      }
+    }
+
+    .panel h2 {
+      font-size: 1.1rem;
+      color: #a8dadc;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      flex: 1;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4ecdc4 0%, #45b7aa 100%);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
+    .btn-warning {
+      background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+      color: white;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+      color: white;
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #e94560 0%, #d63050 100%);
+      color: white;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .control-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Category voting phase styles */
+    .category-list {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .category-item {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .category-item.approved {
+      background: rgba(78, 205, 196, 0.15);
+      border: 1px solid #4ecdc4;
+    }
+
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .category-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .category-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .category-count {
+      padding: 4px 12px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      font-size: 0.85rem;
+    }
+
+    .category-count.approved {
+      background: #4ecdc4;
+      color: #1a1a2e;
+    }
+
+    .category-suggesters {
+      font-size: 0.9rem;
+      color: #a8dadc;
+      margin-bottom: 10px;
+    }
+
+    .question-form {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .question-form input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .question-form input::placeholder {
+      color: #888;
+    }
+
+    .question-form button {
+      padding: 10px 15px;
+      background: #4ecdc4;
+      border: none;
+      border-radius: 5px;
+      color: #1a1a2e;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .questions-list {
+      margin-top: 10px;
+      padding-left: 15px;
+      border-left: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .question-preview {
+      font-size: 0.85rem;
+      color: #a8dadc;
+      padding: 5px 0;
+    }
+
+    /* Playing phase styles */
+    .current-question {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .question-meta {
+      font-size: 0.85rem;
+      color: #a8dadc;
+      margin-bottom: 8px;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .answer-text {
+      color: #4ecdc4;
+      font-size: 1rem;
+      padding: 10px;
+      background: rgba(78, 205, 196, 0.1);
+      border-radius: 5px;
+    }
+
+    .player-list {
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    .player-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .player-item.has-bet {
+      border: 2px solid #f39c12;
+      background: rgba(243, 156, 18, 0.1);
+    }
+
+    .player-info {
+      flex: 1;
+    }
+
+    .player-name {
+      font-weight: bold;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bet-badge {
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      background: #f39c12;
+      border-radius: 4px;
+      color: white;
+    }
+
+    .player-answer {
+      font-size: 0.85rem;
+      color: #a8dadc;
+    }
+
+    .score-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .score-btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-btn.minus {
+      background: #e94560;
+      color: white;
+    }
+
+    .score-btn.plus {
+      background: #4ecdc4;
+      color: white;
+    }
+
+    .score-display {
+      font-size: 1.1rem;
+      font-weight: bold;
+      min-width: 45px;
+      text-align: center;
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .quick-btn {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .quick-btn.correct {
+      background: #27ae60;
+      color: white;
+    }
+
+    .quick-btn.wrong {
+      background: #e94560;
+      color: white;
+    }
+
+    .waiting-message {
+      text-align: center;
+      padding: 30px;
+      color: #a8dadc;
+    }
+
+    .waiting-message h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .error-message {
+      background: rgba(233, 69, 96, 0.2);
+      border: 1px solid #e94560;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      color: #e94560;
+    }
+
+    .info-box {
+      background: rgba(78, 205, 196, 0.1);
+      border: 1px solid rgba(78, 205, 196, 0.3);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .info-box .label {
+      font-size: 0.9rem;
+      color: #a8dadc;
+    }
+
+    .info-box .value {
+      font-size: 1.5rem;
+      color: #4ecdc4;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Quiz Admin Panel</h1>
+      <div class="phase-indicator" id="phaseIndicator">Fase: Lobby</div>
+      <div class="header-actions">
+        <button class="reset-btn" onclick="resetQuiz()">Reset Quiz</button>
+      </div>
+    </header>
+
+    <div id="errorMessage" style="display: none;"></div>
+
+    <div class="main-grid" id="mainContent">
+      <!-- Content injected by JS based on phase -->
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    let currentState = null;
+    let players = [];
+    let categories = [];
+    let skipVoteStatus = { skipVoteCount: 0, totalPlayers: 0, votesNeeded: 1 };
+
+    socket.on('gameState', (state) => {
+      currentState = state;
+      render();
+    });
+
+    socket.on('playerUpdate', (playerData) => {
+      players = playerData;
+      if (currentState?.phase === 'playing') {
+        renderPlayers();
+      }
+    });
+
+    socket.on('categoryVotesUpdate', (cats) => {
+      categories = cats;
+      if (currentState?.phase === 'category-voting') {
+        render();
+      }
+    });
+
+    socket.on('skipVoteUpdate', (status) => {
+      skipVoteStatus = status;
+    });
+
+    socket.on('error', (error) => {
+      showError(error.message);
+    });
+
+    function showError(message) {
+      const errorDiv = document.getElementById('errorMessage');
+      errorDiv.innerHTML = `<div class="error-message">${message}</div>`;
+      errorDiv.style.display = 'block';
+      setTimeout(() => { errorDiv.style.display = 'none'; }, 5000);
+    }
+
+    function render() {
+      const phaseIndicator = document.getElementById('phaseIndicator');
+      const mainContent = document.getElementById('mainContent');
+
+      if (!currentState) {
+        phaseIndicator.textContent = 'Fase: Laden...';
+        return;
+      }
+
+      const phaseNames = {
+        'lobby': 'Lobby',
+        'category-voting': 'Categorieën Kiezen',
+        'playing': 'Quiz Actief',
+        'finished': 'Afgelopen'
+      };
+      phaseIndicator.textContent = `Fase: ${phaseNames[currentState.phase] || currentState.phase}`;
+
+      if (currentState.phase === 'lobby') {
+        renderLobby();
+      } else if (currentState.phase === 'category-voting') {
+        renderCategoryVoting();
+      } else if (currentState.phase === 'playing') {
+        renderPlaying();
+      } else if (currentState.phase === 'finished') {
+        renderFinished();
+      }
+    }
+
+    function renderLobby() {
+      const mainContent = document.getElementById('mainContent');
+      mainContent.innerHTML = `
+        <div class="panel">
+          <h2>Quiz Starten</h2>
+          <div class="waiting-message">
+            <h3>${players.length} speler(s) aangemeld</h3>
+            <p>Start de quiz wanneer iedereen er is</p>
+          </div>
+          <button class="btn btn-success" onclick="startCategoryVoting()" style="width: 100%;">
+            Start Categorieën Kiezen
+          </button>
+        </div>
+
+        <div class="panel">
+          <h2>Spelers</h2>
+          <div class="player-list">
+            ${players.map(p => `<div class="player-item"><span>${p.name}</span></div>`).join('') || '<p style="color: #a8dadc;">Nog geen spelers</p>'}
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Instructies</h2>
+          <div style="color: #a8dadc; line-height: 1.6;">
+            <p><strong>1.</strong> Wacht tot alle spelers zijn ingelogd</p>
+            <p><strong>2.</strong> Klik "Start Categorieën Kiezen"</p>
+            <p><strong>3.</strong> Spelers typen categorieën in</p>
+            <p><strong>4.</strong> 3x dezelfde = automatisch toegevoegd</p>
+            <p><strong>5.</strong> Voeg vragen toe aan goedgekeurde categorieën</p>
+            <p><strong>6.</strong> Start de quiz!</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCategoryVoting() {
+      const mainContent = document.getElementById('mainContent');
+      const approvedCategories = categories.filter(c => c.isApproved);
+      const pendingCategories = categories.filter(c => !c.isApproved);
+
+      const approvedHtml = approvedCategories.map(cat => `
+        <div class="category-item approved">
+          <div class="category-header">
+            <span class="category-name">${cat.name}</span>
+            <div class="category-status">
+              <span class="category-count approved">${cat.suggesterCount}/${currentState.votesNeededForCategory}</span>
+              <span style="color: #4ecdc4;">✓ IN</span>
+            </div>
+          </div>
+          <div class="category-suggesters">Voorgesteld door: ${cat.suggesters.join(', ')}</div>
+          <div class="questions-list">
+            ${cat.questionCount} vraag/vragen toegevoegd
+            ${cat.questionCount > 0 ? '' : '<span style="color: #e94560;"> - Voeg vragen toe!</span>'}
+          </div>
+          <div class="question-form">
+            <input type="text" placeholder="Vraag" id="q-${cat.name.replace(/\s/g, '_')}" />
+            <input type="text" placeholder="Antwoord" id="a-${cat.name.replace(/\s/g, '_')}" />
+            <button onclick="addQuestion('${cat.name}')">+</button>
+          </div>
+        </div>
+      `).join('');
+
+      const pendingHtml = pendingCategories.map(cat => `
+        <div class="category-item">
+          <div class="category-header">
+            <span class="category-name">${cat.name}</span>
+            <span class="category-count">${cat.suggesterCount}/${currentState.votesNeededForCategory}</span>
+          </div>
+          <div class="category-suggesters">Voorgesteld door: ${cat.suggesters.join(', ')}</div>
+        </div>
+      `).join('');
+
+      const canStartQuiz = approvedCategories.filter(c => c.questionCount > 0).length > 0;
+
+      mainContent.innerHTML = `
+        <div class="panel">
+          <h2>Besturing</h2>
+          <div class="info-box">
+            <div class="label">Goedgekeurde categorieën</div>
+            <div class="value">${approvedCategories.length}</div>
+          </div>
+          <div class="info-box">
+            <div class="label">Met vragen</div>
+            <div class="value">${approvedCategories.filter(c => c.questionCount > 0).length}</div>
+          </div>
+          <button class="btn btn-success" onclick="startQuiz()" style="width: 100%; margin-top: 15px;" ${canStartQuiz ? '' : 'disabled'}>
+            Start Quiz
+          </button>
+          ${!canStartQuiz ? '<p style="color: #e94560; text-align: center; margin-top: 10px; font-size: 0.9rem;">Voeg eerst vragen toe aan minstens 1 categorie</p>' : ''}
+        </div>
+
+        <div class="panel">
+          <h2>Goedgekeurde Categorieën (3+ stemmen)</h2>
+          <div class="category-list">
+            ${approvedHtml || '<p style="color: #a8dadc;">Nog geen goedgekeurde categorieën</p>'}
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Wachtend op Stemmen</h2>
+          <div class="category-list">
+            ${pendingHtml || '<p style="color: #a8dadc;">Geen wachtende categorieën</p>'}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPlaying() {
+      const mainContent = document.getElementById('mainContent');
+
+      if (!currentState.currentQuestion) {
+        mainContent.innerHTML = `
+          <div class="panel">
+            <h2>Quiz Afgelopen</h2>
+            <div class="waiting-message">
+              <h3>Alle categorieën zijn gespeeld!</h3>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      const question = currentState.currentQuestion;
+      const isLastQuestion = currentState.currentQuestionIndex >= currentState.currentCategory.questionCount - 1;
+      const isLastCategory = currentState.currentCategoryIndex >= currentState.totalCategories - 1;
+
+      mainContent.innerHTML = `
+        <div class="panel">
+          <h2>Quiz Besturing - ${currentState.currentCategory?.name || ''}</h2>
+          <div class="current-question">
+            <div class="question-meta">
+              Vraag ${currentState.currentQuestionIndex + 1} van ${currentState.currentCategory.questionCount} |
+              Categorie ${currentState.currentCategoryIndex + 1} van ${currentState.totalCategories}
+            </div>
+            <div class="question-text">${question.question}</div>
+            <div class="answer-text">Antwoord: ${question.answer || '-'}</div>
+          </div>
+
+          <div class="controls">
+            <div class="control-row">
+              <button class="btn btn-secondary" onclick="prevQuestion()" ${currentState.currentQuestionIndex <= 0 ? 'disabled' : ''}>
+                Vorige
+              </button>
+              <button class="btn btn-secondary" onclick="nextQuestion()">
+                ${isLastQuestion ? (isLastCategory ? 'Einde' : 'Volgende Cat.') : 'Volgende'}
+              </button>
+            </div>
+
+            <button class="btn ${currentState.showAnswer ? 'btn-warning' : 'btn-primary'}" onclick="toggleAnswer()">
+              ${currentState.showAnswer ? 'Verberg Antwoord' : 'Toon Antwoord'}
+            </button>
+
+            <button class="btn btn-danger" onclick="skipCategory()" ${isLastCategory ? 'disabled' : ''}>
+              Skip naar Volgende Categorie
+            </button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Spelers & Scores</h2>
+          <div class="player-list" id="playerList"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Categorieën</h2>
+          <div id="categoryProgress"></div>
+        </div>
+      `;
+
+      renderPlayers();
+      renderCategoryProgress();
+    }
+
+    function renderPlayers() {
+      const playerList = document.getElementById('playerList');
+      if (!playerList) return;
+
+      const questionId = currentState?.currentQuestion?.id;
+
+      playerList.innerHTML = players.map(player => {
+        const hasBet = player.hasBetOnCurrent;
+
+        return `
+          <div class="player-item ${hasBet ? 'has-bet' : ''}">
+            <div class="player-info">
+              <div class="player-name">
+                ${player.name}
+                ${hasBet ? '<span class="bet-badge">2x</span>' : ''}
+              </div>
+              <div class="player-answer">
+                Antwoord: ${player.currentAnswer || '-'}
+              </div>
+              ${hasBet && currentState?.showAnswer ? `
+                <div class="quick-actions">
+                  <button class="quick-btn correct" onclick="awardPoints('${player.name}', 1, ${questionId})">
+                    +1 (wordt 2)
+                  </button>
+                  <button class="quick-btn wrong" onclick="deductBetPoints('${player.name}', 1, ${questionId})">
+                    Fout (-1)
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+            <div class="score-controls">
+              <button class="score-btn minus" onclick="updateScore('${player.name}', ${player.score - 1})">-</button>
+              <span class="score-display">${player.score}</span>
+              <button class="score-btn plus" onclick="updateScore('${player.name}', ${player.score + 1})">+</button>
+            </div>
+          </div>
+        `;
+      }).join('') || '<p style="color: #a8dadc;">Geen spelers</p>';
+    }
+
+    function renderCategoryProgress() {
+      const progress = document.getElementById('categoryProgress');
+      if (!progress || !currentState) return;
+
+      let html = '';
+      for (let i = 0; i < currentState.totalCategories; i++) {
+        const isCurrent = i === currentState.currentCategoryIndex;
+        const isCompleted = i < currentState.currentCategoryIndex;
+        html += `
+          <div style="padding: 8px 12px; margin-bottom: 5px; background: ${isCurrent ? 'rgba(78, 205, 196, 0.2)' : 'rgba(255,255,255,0.05)'}; border-radius: 5px; ${isCurrent ? 'border: 1px solid #4ecdc4;' : ''}">
+            ${i + 1}. ${isCompleted ? '✓' : isCurrent ? '→' : ''} Categorie ${i + 1}
+          </div>
+        `;
+      }
+      progress.innerHTML = html;
+    }
+
+    function renderFinished() {
+      const mainContent = document.getElementById('mainContent');
+      const sortedPlayers = [...players].sort((a, b) => b.score - a.score);
+
+      mainContent.innerHTML = `
+        <div class="panel full-width">
+          <h2>Quiz Afgelopen - Eindstand</h2>
+          <div class="player-list">
+            ${sortedPlayers.map((p, i) => `
+              <div class="player-item" style="${i === 0 ? 'background: rgba(255, 215, 0, 0.2); border: 2px solid gold;' : ''}">
+                <span><strong>#${i + 1}</strong> ${p.name}</span>
+                <span style="color: #4ecdc4; font-weight: bold;">${p.score} pts</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // Actions
+    function startCategoryVoting() {
+      socket.emit('startCategoryVoting');
+    }
+
+    function startQuiz() {
+      socket.emit('startQuiz');
+    }
+
+    function addQuestion(categoryName) {
+      const qInput = document.getElementById(`q-${categoryName.replace(/\s/g, '_')}`);
+      const aInput = document.getElementById(`a-${categoryName.replace(/\s/g, '_')}`);
+
+      const question = qInput.value.trim();
+      const answer = aInput.value.trim();
+
+      if (!question || !answer) {
+        showError('Vul zowel vraag als antwoord in');
+        return;
+      }
+
+      socket.emit('addQuestion', { categoryName, question, answer });
+      qInput.value = '';
+      aInput.value = '';
+    }
+
+    function nextQuestion() {
+      socket.emit('nextQuestion');
+    }
+
+    function prevQuestion() {
+      socket.emit('prevQuestion');
+    }
+
+    function skipCategory() {
+      socket.emit('nextCategory');
+    }
+
+    function toggleAnswer() {
+      socket.emit('toggleAnswer');
+    }
+
+    function updateScore(playerName, score) {
+      socket.emit('updateScore', { playerName, score });
+    }
+
+    function awardPoints(playerName, points, questionId) {
+      socket.emit('awardPoints', { playerName, points, questionId });
+    }
+
+    function deductBetPoints(playerName, points, questionId) {
+      socket.emit('deductBetPoints', { playerName, points, questionId });
+    }
+
+    function resetQuiz() {
+      if (confirm('Weet je zeker dat je de quiz wilt resetten? Alles wordt gewist.')) {
+        socket.emit('resetQuiz');
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
